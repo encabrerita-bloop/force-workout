@@ -8,151 +8,182 @@
 <meta name="apple-mobile-web-app-title" content="FORCE"/>
 <title>FORCE — Entrenamiento 3 días</title>
 <style>
+:root{
+  --bg:#0A0E1A;
+  --surface:#111827;
+  --card:#1C2333;
+  --border:#252D40;
+  --accent:#FF6B35;
+  --accent2:#FFB347;
+  --blue:#3D7BF5;
+  --green:#22C55E;
+  --text:#F1F5FF;
+  --muted:#6B7698;
+  --rest-color:#2D3A6B;
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
-html,body{background:#0F1117;color:#F0F2FF;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;min-height:100vh;}
-button{cursor:pointer;font-family:inherit;}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;min-height:100vh;}
+button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}
 
-/* Layout */
+/* SCREENS */
 .screen{display:none;min-height:100vh;flex-direction:column;}
 .screen.active{display:flex;}
 
-/* HOME */
-.home-header{padding:32px 20px 20px;max-width:640px;margin:0 auto;width:100%;}
-.home-title{font-size:32px;font-weight:900;letter-spacing:-1px;}
-.home-sub{font-size:13px;color:#7A809E;margin-top:2px;}
-.stats-row{display:flex;gap:12px;margin-top:16px;}
-.stat-box{flex:1;background:#1A1D26;border-radius:10px;padding:12px 14px;}
-.stat-num{font-size:22px;font-weight:800;color:#C6F135;}
-.stat-label{font-size:11px;color:#7A809E;margin-top:2px;}
-.section-label{font-size:11px;color:#7A809E;font-weight:600;letter-spacing:0.06em;margin-bottom:12px;text-transform:uppercase;}
-.days-list{display:flex;flex-direction:column;gap:12px;}
-.day-card{border-radius:14px;overflow:hidden;border:1px solid #2E3348;}
-.day-header{width:100%;background:#22263A;border:none;padding:18px 20px;display:flex;align-items:center;gap:14px;text-align:left;}
-.day-badge{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0;border:2px solid;}
+/* ── HOME ── */
+.home-wrap{max-width:640px;margin:0 auto;width:100%;padding:0 18px;}
+
+.top-bar{padding:44px 0 4px;display:flex;align-items:flex-end;justify-content:space-between;}
+.app-wordmark{font-size:36px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.app-tagline{font-size:12px;color:var(--muted);padding-bottom:6px;}
+
+.stats-strip{display:flex;gap:10px;margin:18px 0 28px;}
+.stat{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;}
+.stat-val{font-size:26px;font-weight:800;color:var(--accent);}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
+
+.section-hd{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+
+.day-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.day-card{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card);}
+.day-btn{width:100%;background:none;border:none;padding:18px 18px;display:flex;align-items:center;gap:14px;text-align:left;}
+.day-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;border:2px solid;}
 .day-info{flex:1;}
-.day-name{font-size:17px;font-weight:800;}
-.day-sub{font-size:13px;color:#7A809E;margin-top:2px;}
-.day-meta{text-align:right;flex-shrink:0;}
-.day-last{font-size:11px;color:#7A809E;}
-.day-count{font-size:13px;font-weight:600;margin-top:2px;}
-.day-preview{background:#1A1D26;padding:16px 20px;border-top:1px solid #2E3348;display:none;}
-.day-preview.open{display:block;}
-.preview-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
-.preview-item{display:flex;align-items:center;gap:10;}
-.preview-num{width:20px;height:20px;border-radius:50%;background:#2E3348;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#7A809E;flex-shrink:0;}
-.preview-name{font-size:14px;font-weight:600;}
-.preview-muscle{font-size:12px;color:#7A809E;margin-left:6px;}
-.preview-time{font-size:12px;color:#7A809E;margin-left:auto;}
-.start-btn{width:100%;padding:13px 0;border-radius:10px;border:none;font-weight:800;font-size:15px;color:#000;}
-.history-section{margin-top:28px;}
-.history-item{display:flex;align-items:center;gap:12;background:#1A1D26;border-radius:10px;padding:10px 14px;margin-bottom:6px;}
-.history-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.history-name{flex:1;font-size:14px;}
-.history-date{font-size:12px;color:#7A809E;}
-.footer-note{margin-top:24px;font-size:12px;color:#7A809E;line-height:1.6;padding-bottom:40px;}
-.content-wrap{padding:0 20px;max-width:640px;margin:0 auto;width:100%;}
+.day-name{font-size:17px;font-weight:700;color:var(--text);}
+.day-sub{font-size:13px;color:var(--muted);margin-top:2px;}
+.day-right{text-align:right;flex-shrink:0;}
+.day-last{font-size:11px;color:var(--muted);}
+.day-cnt{font-size:13px;font-weight:600;margin-top:2px;}
+.chevron{font-size:18px;color:var(--muted);transition:transform .2s;display:inline-block;margin-left:8px;}
+.chevron.open{transform:rotate(180deg);}
 
-/* SESSION */
-.session-header{padding:16px 20px;display:flex;align-items:center;gap:12;border-bottom:1px solid #2E3348;flex-shrink:0;}
-.back-btn{background:none;border:none;color:#7A809E;font-size:22px;padding:0 8px 0 0;}
-.session-round{font-size:13px;color:#7A809E;}
-.session-title{font-size:16px;font-weight:700;}
-.dots-row{margin-left:auto;display:flex;gap:6px;}
-.dot{width:8px;height:8px;border-radius:50%;background:#2E3348;transition:background .2s;}
-.dot.active{background:#C6F135;}
-.dot.done{background:#4CAF82;}
+.preview-panel{background:var(--surface);border-top:1px solid var(--border);padding:16px 18px;display:none;}
+.preview-panel.open{display:block;}
+.ex-preview-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
+.ex-preview-row:last-child{border-bottom:none;}
+.ex-preview-num{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;}
+.ex-preview-name{font-size:14px;font-weight:600;flex:1;}
+.ex-preview-muscle{font-size:12px;color:var(--muted);}
+.ex-preview-time{font-size:12px;color:var(--muted);margin-left:auto;flex-shrink:0;}
+.start-day-btn{width:100%;padding:13px 0;border-radius:10px;border:none;font-weight:800;font-size:15px;color:#fff;margin-top:14px;letter-spacing:.02em;}
 
-.session-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:18px;}
-.session-ex-num{font-size:13px;color:#7A809E;text-align:center;}
-.session-ex-name{font-size:22px;font-weight:800;text-align:center;line-height:1.2;}
-.session-cue{font-size:13px;color:#7A809E;text-align:center;max-width:300px;line-height:1.5;}
-.action-btn{padding:14px 48px;border-radius:12px;border:none;font-size:17px;font-weight:800;margin-top:8px;transition:background .2s;}
+.history-wrap{margin-bottom:40px;}
+.hist-row{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:7px;}
+.hist-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.hist-name{flex:1;font-size:14px;}
+.hist-date{font-size:12px;color:var(--muted);}
 
-/* TIMER RING */
-.ring-wrap{position:relative;display:inline-block;}
+.footer-tip{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:40px;}
 
-/* EXERCISE CARDS in session */
-.session-cards{padding:0 20px 24px;display:flex;flex-direction:column;gap:8px;}
-.ex-card{border:1px solid #2E3348;border-radius:12px;background:#22263A;overflow:hidden;transition:border-color .2s;}
-.ex-card.active-ex{border-color:#C6F135;}
-.ex-card.done-ex{border-color:#4CAF82;background:#1A2E24;}
-.ex-card-header{width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:none;border:none;text-align:left;}
-.ex-badge{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:#2E3348;color:#7A809E;transition:background .2s,color .2s;}
-.ex-badge.active-badge{background:#C6F135;color:#000;}
-.ex-badge.done-badge{background:#4CAF82;color:#000;}
-.ex-title{font-size:15px;font-weight:700;}
-.ex-muscle{font-size:12px;color:#7A809E;margin-top:2px;}
-.ex-timing{font-size:12px;color:#7A809E;flex-shrink:0;}
-.ex-chev{color:#7A809E;font-size:16px;transition:transform .2s;}
-.ex-body{padding:0 16px 16px;border-top:1px solid #2E3348;display:none;}
+/* ── SESSION ── */
+.sess-header{padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg);}
+.back-btn{background:none;border:none;font-size:22px;color:var(--muted);padding:0 8px 0 0;}
+.sess-meta{flex:1;}
+.sess-round-lbl{font-size:12px;color:var(--muted);}
+.sess-day-lbl{font-size:16px;font-weight:700;}
+.progress-dots{display:flex;gap:5px;align-items:center;}
+.pdot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .2s;}
+.pdot.pdone{background:var(--green);}
+.pdot.pactive{background:var(--accent);}
+
+.sess-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 18px;gap:14px;}
+.sess-ex-lbl{font-size:13px;color:var(--muted);text-align:center;}
+.sess-ex-title{font-size:22px;font-weight:800;text-align:center;line-height:1.2;}
+.sess-cue-txt{font-size:13px;color:var(--muted);text-align:center;max-width:300px;line-height:1.5;}
+.action-btn{padding:14px 52px;border-radius:14px;border:none;font-size:17px;font-weight:800;transition:all .15s;letter-spacing:.02em;}
+
+/* Timer */
+#ring-wrap{position:relative;}
+
+/* Exercise accordion list */
+.ex-list{padding:0 18px 24px;display:flex;flex-direction:column;gap:8px;}
+.ex-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card);transition:border-color .2s;}
+.ex-card.is-active{border-color:var(--accent);}
+.ex-card.is-done{border-color:var(--green);background:#0D1F14;}
+.ex-card-btn{width:100%;display:flex;align-items:center;gap:10px;padding:13px 15px;background:none;border:none;text-align:left;}
+.ex-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--border);color:var(--muted);flex-shrink:0;transition:background .2s,color .2s;}
+.ex-num.num-active{background:var(--accent);color:#fff;}
+.ex-num.num-done{background:var(--green);color:#fff;}
+.ex-ttl{font-size:14px;font-weight:700;flex:1;}
+.ex-mus{font-size:12px;color:var(--muted);margin-top:1px;}
+.ex-timing-lbl{font-size:11px;color:var(--muted);flex-shrink:0;}
+.ex-chev{color:var(--muted);font-size:15px;transition:transform .2s;margin-left:4px;}
+.ex-body{padding:0 15px 15px;border-top:1px solid var(--border);display:none;}
 .ex-body.open{display:block;}
-.ex-img{width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin:14px 0 12px;background:#1A1D26;display:block;}
-.ex-img-error{width:100%;height:100px;border-radius:8px;margin:14px 0 12px;background:#1A1D26;display:flex;align-items:center;justify-content:center;font-size:13px;color:#7A809E;}
-.ex-cue{font-size:13.5px;color:#C8CCE0;line-height:1.6;margin-bottom:10px;}
-.ex-tip{background:#1A1D26;border-radius:8px;padding:10px 12px;font-size:12.5px;color:#8CAB20;line-height:1.5;}
+.ex-gif{width:100%;max-height:200px;object-fit:contain;border-radius:10px;margin:12px 0 10px;background:var(--surface);display:block;}
+.gif-fallback{width:100%;height:130px;border-radius:10px;margin:12px 0 10px;background:var(--surface);display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+.gif-fallback-icon{font-size:32px;}
+.gif-fallback-txt{font-size:12px;color:var(--muted);}
+.ex-cue-p{font-size:13px;color:#C8D0E8;line-height:1.6;margin-bottom:9px;}
+.ex-tip-box{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12.5px;color:var(--accent2);line-height:1.5;}
 
-/* DONE SCREEN */
-.done-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:20px;text-align:center;}
-.done-emoji{font-size:64px;}
-.done-title{font-size:28px;font-weight:800;color:#C6F135;}
-.done-sub{font-size:15px;color:#7A809E;}
-.done-btn{margin-top:16px;padding:14px 36px;border-radius:10px;background:#C6F135;color:#000;font-weight:800;font-size:16px;border:none;}
+/* ── DONE ── */
+.done-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:18px;text-align:center;}
+.done-emoji{font-size:72px;}
+.done-ttl{font-size:30px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.done-sub{font-size:15px;color:var(--muted);}
+.done-stats{display:flex;gap:16px;margin:8px 0;}
+.done-stat{background:var(--surface);border-radius:12px;padding:14px 20px;text-align:center;}
+.done-stat-val{font-size:24px;font-weight:800;color:var(--accent);}
+.done-stat-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
+.done-cta{padding:14px 40px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:800;font-size:16px;margin-top:8px;}
 </style>
 </head>
 <body>
 
-<!-- HOME SCREEN -->
+<!-- HOME -->
 <div id="home-screen" class="screen active">
-  <div class="home-header">
-    <div class="home-title">FORCE</div>
-    <div class="home-sub">3 días · 20 min · Casa</div>
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-num" id="stat-week">0</div><div class="stat-label">esta semana</div></div>
-      <div class="stat-box"><div class="stat-num" id="stat-total">0</div><div class="stat-label">sesiones totales</div></div>
-      <div class="stat-box"><div class="stat-num" id="stat-min">0</div><div class="stat-label">minutos</div></div>
+  <div class="home-wrap">
+    <div class="top-bar">
+      <div class="app-wordmark">FORCE</div>
+      <div class="app-tagline">3 días · 20 min · Casa</div>
     </div>
-  </div>
-  <div class="content-wrap">
-    <div class="section-label">Elige tu sesión de hoy</div>
-    <div class="days-list" id="days-list"></div>
-    <div class="history-section" id="history-section" style="display:none;">
-      <div class="section-label">Historial reciente</div>
-      <div id="history-list"></div>
+    <div class="stats-strip">
+      <div class="stat"><div class="stat-val" id="s-week">0</div><div class="stat-lbl">esta semana</div></div>
+      <div class="stat"><div class="stat-val" id="s-total">0</div><div class="stat-lbl">sesiones</div></div>
+      <div class="stat"><div class="stat-val" id="s-min">0</div><div class="stat-lbl">minutos</div></div>
     </div>
-    <div class="footer-note">
-      Circuito metabólico: 40s trabajo / 20s descanso · 3 rondas · ~20 min<br>
-      Descansa al menos 1 día entre sesiones para recuperación óptima.
+    <div class="section-hd">Sesión de hoy</div>
+    <div class="day-list" id="day-list"></div>
+    <div id="hist-section" style="display:none">
+      <div class="section-hd">Historial</div>
+      <div class="history-wrap" id="hist-list"></div>
     </div>
+    <div class="footer-tip">40s trabajo · 20s descanso · 3 rondas · ~20 min<br>Descansa al menos 1 día entre sesiones.</div>
   </div>
 </div>
 
-<!-- SESSION SCREEN -->
-<div id="session-screen" class="screen">
-  <div class="session-header">
-    <button class="back-btn" onclick="backToHome()">←</button>
-    <div style="flex:1">
-      <div class="session-round" id="sess-round">Ronda 1 de 3</div>
-      <div class="session-title" id="sess-title">Día A — Empuje + Pierna</div>
+<!-- SESSION -->
+<div id="sess-screen" class="screen">
+  <div class="sess-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="sess-meta">
+      <div class="sess-round-lbl" id="s-round">Ronda 1 de 3</div>
+      <div class="sess-day-lbl" id="s-title">Día A</div>
     </div>
-    <div class="dots-row" id="sess-dots"></div>
+    <div class="progress-dots" id="s-dots"></div>
   </div>
-  <div class="session-main" id="sess-main">
-    <div class="session-ex-num" id="sess-ex-num">Ejercicio 1 de 4</div>
-    <div class="session-ex-name" id="sess-ex-name">—</div>
-    <div id="ring-container"></div>
-    <div class="session-cue" id="sess-cue"></div>
-    <button class="action-btn" id="sess-action" onclick="toggleTimer()" style="background:#C6F135;color:#000;">Iniciar</button>
+  <div class="sess-main" id="s-main">
+    <div class="sess-ex-lbl" id="s-exlbl"></div>
+    <div class="sess-ex-title" id="s-extitle"></div>
+    <div id="ring-wrap"></div>
+    <div class="sess-cue-txt" id="s-cue"></div>
+    <button class="action-btn" id="s-btn" onclick="toggleTimer()" style="background:var(--accent);color:#fff;">Iniciar</button>
   </div>
-  <div class="session-cards" id="sess-cards"></div>
+  <div class="ex-list" id="s-cards"></div>
 </div>
 
-<!-- DONE SCREEN -->
+<!-- DONE -->
 <div id="done-screen" class="screen">
-  <div class="done-screen">
+  <div class="done-wrap">
     <div class="done-emoji">🔥</div>
-    <div class="done-title">¡Sesión completa!</div>
-    <div class="done-sub" id="done-sub">Día A · 3 rondas · 12 series</div>
-    <button class="done-btn" onclick="finishSession()">Terminar</button>
+    <div class="done-ttl">¡Sesión completa!</div>
+    <div class="done-sub" id="d-sub">Día A · 3 rondas</div>
+    <div class="done-stats">
+      <div class="done-stat"><div class="done-stat-val" id="d-series">12</div><div class="done-stat-lbl">series</div></div>
+      <div class="done-stat"><div class="done-stat-val">20</div><div class="done-stat-lbl">minutos</div></div>
+      <div class="done-stat"><div class="done-stat-val" id="d-kcal">~180</div><div class="done-stat-lbl">kcal est.</div></div>
+    </div>
+    <button class="done-cta" onclick="finishSession()">Terminar →</button>
   </div>
 </div>
 
@@ -160,360 +191,385 @@ button{cursor:pointer;font-family:inherit;}
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 const DAYS = [
   {
-    id:"A", name:"Día A", label:"Empuje + Pierna", color:"#5B8CFF",
+    id:"A", name:"Día A", label:"Empuje + Pierna",
+    color:"#3D7BF5", bg:"rgba(61,123,245,.12)",
+    kcal:180,
     exercises:[
-      {id:"squat",name:"Squat con banda",muscles:"Piernas · Glúteos · Core",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Squat_plain_fix.gif/220px-Squat_plain_fix.gif",
-       cue:"Pies a lo ancho de hombros, punta ligeramente hacia afuera. Baja como si fueras a sentarte, rodillas alineadas con los pies. Espalda recta. Sube apretando glúteos.",
-       tip:"La banda va justo sobre las rodillas para activar los glúteos."},
-      {id:"pushup",name:"Push-up",muscles:"Pecho · Hombros · Tríceps",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Pushup_example.gif/220px-Pushup_example.gif",
-       cue:"Manos a lo ancho de hombros. Cuerpo en línea recta de cabeza a talones. Baja el pecho al suelo. Si necesitas, apoya las rodillas.",
-       tip:"Mete el mentón ligeramente — protege tu cuello."},
-      {id:"shoulder-press",name:"Shoulder Press con mancuerna",muscles:"Hombros · Tríceps · Core",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Shoulder_press_with_dumbbells.jpg/220px-Shoulder_press_with_dumbbells.jpg",
-       cue:"De pie, mancuernas a la altura de los hombros, palmas hacia adelante. Empuja hacia arriba hasta extender los brazos. Baja con control.",
-       tip:"No arquees la espalda baja — activa el core antes de empujar."},
-      {id:"reverse-lunge",name:"Reverse Lunge",muscles:"Piernas · Glúteos · Equilibrio",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Lunge_back.jpg/220px-Lunge_back.jpg",
-       cue:"De pie, da un paso grande hacia atrás. Baja la rodilla trasera casi al suelo. Regresa empujando con la pierna delantera. Alterna lados.",
-       tip:"El lunge hacia atrás es más seguro para la rodilla que el frontal."},
+      {
+        id:"squat", name:"Squat con banda",
+        muscles:"Piernas · Glúteos · Core",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/5z4q0v91sNYAAAAd/squats-exercise.gif",
+        cue:"Pies a lo ancho de hombros. Baja como si fueras a sentarte en una silla baja, rodillas hacia afuera siguiendo la punta de los pies. Espalda recta. Sube apretando glúteos.",
+        tip:"La banda sobre las rodillas activa los glúteos medios — clave para tu pelvis."
+      },
+      {
+        id:"pushup", name:"Push-up",
+        muscles:"Pecho · Hombros · Tríceps",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/0PnchcCC_0QAAAAd/push-up.gif",
+        cue:"Manos a lo ancho de hombros. Cuerpo recto de cabeza a talones — no dejes caer la cadera. Baja el pecho al suelo. Modifica apoyando rodillas si es necesario.",
+        tip:"Mete el mentón ligeramente al bajar — protege tu cervical durante el movimiento."
+      },
+      {
+        id:"shoulder-press", name:"Shoulder Press con mancuerna",
+        muscles:"Hombros · Tríceps · Core",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/EzRpaFItz6YAAAAC/shoulder-press-gym.gif",
+        cue:"De pie, mancuernas a la altura de los hombros, codos a 90°. Empuja hacia arriba hasta extender completamente los brazos. Baja con control en 2-3 segundos.",
+        tip:"Activa el core antes de cada rep — evita arquear la espalda baja al empujar."
+      },
+      {
+        id:"reverse-lunge", name:"Reverse Lunge",
+        muscles:"Piernas · Glúteos · Equilibrio",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/NP9p8-YAaFsAAAAC/reverse-lunge-exercise.gif",
+        cue:"De pie, paso grande hacia atrás. La rodilla trasera baja casi al suelo sin tocarlo. Regresa empujando con el talón de la pierna delantera. Alterna lados cada rep.",
+        tip:"El lunge hacia atrás protege la rodilla más que el frontal — ideal para tu diagnóstico."
+      },
     ]
   },
   {
-    id:"B", name:"Día B", label:"Jale + Glúteo", color:"#FF6B6B",
+    id:"B", name:"Día B", label:"Jale + Glúteo",
+    color:"#22C55E", bg:"rgba(34,197,94,.12)",
+    kcal:170,
     exercises:[
-      {id:"band-row",name:"Band Row",muscles:"Espalda · Bíceps · Postura",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Resistance_band_seated_row.jpg/220px-Resistance_band_seated_row.jpg",
-       cue:"Sentado o de pie con banda anclada al frente. Jala los codos hacia atrás juntando los omóplatos. Mantén el pecho arriba.",
-       tip:"Piensa en meter los codos en los bolsillos traseros — activa toda la espalda."},
-      {id:"rdl",name:"RDL con mancuerna",muscles:"Isquiotibiales · Glúteos · Espalda baja",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Dumbbell_romanian_deadlift.jpg/220px-Dumbbell_romanian_deadlift.jpg",
-       cue:"De pie, mancuernas al frente. Inclina el torso hacia adelante empujando las caderas hacia atrás, rodillas ligeramente dobladas. Siente el estiramiento en los isquiotibiales. Regresa apretando glúteos.",
-       tip:"No redondees la espalda baja — este es el ejercicio más importante para tu L4-L5."},
-      {id:"band-pull-apart",name:"Band Pull Apart",muscles:"Omóplatos · Manguito rotador · Postura",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Band_pull_apart.jpg/220px-Band_pull_apart.jpg",
-       cue:"De pie, banda horizontal al frente a la altura del pecho. Estira los brazos abriendo la banda hasta tocar el pecho. Junta los omóplatos al máximo.",
-       tip:"Complementa tu rutina de HealthSource — refuerza lo que el Dr. Bruno ajusta."},
-      {id:"hip-thrust",name:"Hip Thrust con banda",muscles:"Glúteos · Core · Lumbar",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Hip_thrust_demonstration.jpg/220px-Hip_thrust_demonstration.jpg",
-       cue:"Espalda apoyada en el sofá o cama, rodillas dobladas, pies planos. Banda sobre las caderas. Empuja las caderas hacia arriba apretando glúteos. Mantén 1 segundo arriba.",
-       tip:"El ejercicio más efectivo para glúteos — fundamental para estabilizar tu pelvis."},
+      {
+        id:"band-row", name:"Band Row",
+        muscles:"Espalda media · Bíceps · Postura",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/HjVNIKqjJHYAAAAC/resistance-band-row.gif",
+        cue:"Banda anclada al frente (puerta, poste). De pie o sentado, jala los codos directo hacia atrás juntando los omóplatos. Pecho arriba, codo pegado al cuerpo.",
+        tip:"Concéntrate en juntar los omóplatos — esto refuerza directamente lo que el Dr. Bruno está corrigiendo."
+      },
+      {
+        id:"rdl", name:"RDL con mancuerna",
+        muscles:"Isquiotibiales · Glúteos · Espalda baja",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/rVeEmRuK5GIAAAAC/rdl-romanian-deadlift.gif",
+        cue:"De pie, mancuernas al frente. Empuja las caderas hacia atrás (como cerrando una puerta con el trasero), rodillas ligeramente flexionadas. Baja hasta sentir tensión en los isquiotibiales. Regresa apretando glúteos.",
+        tip:"NUNCA redondees la espalda baja — este movimiento es el más importante para tu L4-L5."
+      },
+      {
+        id:"band-pull-apart", name:"Band Pull Apart",
+        muscles:"Omóplatos · Manguito rotador · Postura",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/9Dp_pFiKInsAAAAC/band-pull-apart-exercise.gif",
+        cue:"De pie, banda horizontal frente al pecho, palmas hacia abajo. Abre los brazos hacia los lados estirando la banda hasta tocar el pecho. Junta los omóplatos al máximo.",
+        tip:"Complementa tu rutina de HealthSource — refuerza lo que el Dr. Bruno ajusta en cada cita."
+      },
+      {
+        id:"hip-thrust", name:"Hip Thrust con banda",
+        muscles:"Glúteos · Core · Estabilidad pélvica",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/X0KptJw8MHYAAAAC/hip-thrust-exercise.gif",
+        cue:"Espalda alta apoyada en el sofá/cama, rodillas dobladas, pies planos. Banda sobre las caderas. Empuja caderas hacia el techo apretando glúteos. Mantén 1 segundo arriba.",
+        tip:"El ejercicio más efectivo para glúteos — estabiliza tu pelvis y protege L4-L5."
+      },
     ]
   },
   {
-    id:"C", name:"Día C", label:"Cuerpo completo", color:"#C6F135",
+    id:"C", name:"Día C", label:"Cuerpo completo",
+    color:"#FF6B35", bg:"rgba(255,107,53,.12)",
+    kcal:200,
     exercises:[
-      {id:"goblet-squat",name:"Goblet Squat",muscles:"Piernas · Core · Movilidad",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Goblet_squat.jpg/220px-Goblet_squat.jpg",
-       cue:"Sostén una mancuerna vertical al pecho. Pies un poco más abiertos que los hombros. Baja profundo manteniendo el pecho arriba. Los codos empujan las rodillas hacia afuera en la bajada.",
-       tip:"La posición de la mancuerna fuerza la espalda recta automáticamente."},
-      {id:"dead-bug",name:"Dead Bug",muscles:"Core profundo · Anti-rotación · Lumbar",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Dead_bug_exercise.jpg/220px-Dead_bug_exercise.jpg",
-       cue:"Acostado boca arriba, brazos hacia el techo, rodillas a 90°. Baja simultáneamente el brazo derecho y la pierna izquierda. Regresa y alterna. La espalda baja NUNCA despega del suelo.",
-       tip:"El mejor ejercicio de core para tu diagnóstico — sin presión en los discos."},
-      {id:"mountain-climber",name:"Mountain Climber",muscles:"Core · Cardio · Hombros",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Mountain_climber_exercise.gif/220px-Mountain_climber_exercise.gif",
-       cue:"Posición de plancha alta. Lleva una rodilla al pecho rápidamente alternando, como si corrieras en el suelo. Caderas abajo, core activado.",
-       tip:"Mayor quema calórica de la sesión — ritmo rápido."},
-      {id:"thruster",name:"Thruster con mancuerna",muscles:"Cuerpo completo · Cardio · Fuerza",work:40,rest:20,
-       img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Dumbbell_thruster.jpg/220px-Dumbbell_thruster.jpg",
-       cue:"Mancuernas a los hombros. Baja en squat, al subir usa el impulso para empujar las mancuernas sobre la cabeza. Un movimiento fluido.",
-       tip:"Squat + Press en un solo movimiento — máxima quema en mínimo tiempo."},
+      {
+        id:"goblet-squat", name:"Goblet Squat",
+        muscles:"Piernas · Core · Movilidad",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/eFi7h8UxMkwAAAAC/goblet-squat-exercise.gif",
+        cue:"Sostén una mancuerna vertical contra el pecho. Pies algo más abiertos que los hombros. Baja profundo manteniendo el pecho bien arriba. Los codos empujan las rodillas hacia afuera en la bajada.",
+        tip:"La mancuerna al pecho fuerza la espalda recta automáticamente — la versión más segura de squat para tu columna."
+      },
+      {
+        id:"dead-bug", name:"Dead Bug",
+        muscles:"Core profundo · Anti-rotación · Lumbar",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/xmVn2VbTEYIAAAAC/dead-bug-exercise-core.gif",
+        cue:"Acostado boca arriba, brazos al techo, rodillas a 90°. Baja LENTAMENTE el brazo derecho y la pierna izquierda simultáneamente. La espalda baja nunca despega del suelo. Regresa y alterna.",
+        tip:"El mejor ejercicio de core para tu diagnóstico — activa el core profundo sin presión discal."
+      },
+      {
+        id:"mountain-climber", name:"Mountain Climber",
+        muscles:"Core · Cardio · Hombros",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/HJlLm5gB4P4AAAAC/mountain-climbers-exercise.gif",
+        cue:"Posición de plancha alta. Lleva una rodilla al pecho alternando rápidamente, como si corrieras en el suelo. Caderas bajas alineadas con el cuerpo. Core apretado.",
+        tip:"Mayor quema calórica de la sesión — mantén el ritmo rápido los 40 segundos completos."
+      },
+      {
+        id:"thruster", name:"Thruster con mancuerna",
+        muscles:"Cuerpo completo · Quema calórica máxima",
+        work:40, rest:20,
+        gif:"https://media1.tenor.com/m/cQLGH7_r5KAAAAAC/dumbbell-thruster-exercise.gif",
+        cue:"Mancuernas a los hombros. Baja en squat profundo. Al subir, usa el impulso de las piernas para empujar las mancuernas sobre la cabeza en un solo movimiento fluido.",
+        tip:"Squat + Press en un solo rep — máxima quema en mínimo tiempo. El más difícil de la semana."
+      },
     ]
   }
 ];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
-let history = {};
-try { history = JSON.parse(localStorage.getItem("force_history")||"{}"); } catch{}
+let hist = {};
+try{ hist = JSON.parse(localStorage.getItem("force_v2")||"{}"); }catch{}
 
-let currentDayId = null;
-let round = 1;
-let exIdx = 0;
-let phase = "work"; // work | rest | roundrest
-let remaining = 0;
-let running = false;
-let intervalId = null;
-let doneExIds = [];
-const ROUNDS = 3;
+let dayId=null, round=1, exIdx=0, phase="work", remaining=0, running=false, iv=null, doneIds=[];
+const ROUNDS=3;
 
 // ─── AUDIO ────────────────────────────────────────────────────────────────────
-let audioCtx = null;
-function beep(freq=660, dur=0.2){
+let ac=null;
+function beep(f=660,d=0.18){
   try{
-    if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const o=audioCtx.createOscillator(),g=audioCtx.createGain();
-    o.connect(g);g.connect(audioCtx.destination);
-    o.frequency.value=freq;
-    g.gain.setValueAtTime(0,audioCtx.currentTime);
-    g.gain.linearRampToValueAtTime(0.25,audioCtx.currentTime+0.01);
-    g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+dur);
-    o.start();o.stop(audioCtx.currentTime+dur);
+    if(!ac) ac=new(window.AudioContext||window.webkitAudioContext)();
+    const o=ac.createOscillator(),g=ac.createGain();
+    o.connect(g);g.connect(ac.destination);
+    o.frequency.value=f;
+    g.gain.setValueAtTime(0,ac.currentTime);
+    g.gain.linearRampToValueAtTime(0.3,ac.currentTime+0.01);
+    g.gain.linearRampToValueAtTime(0,ac.currentTime+d);
+    o.start();o.stop(ac.currentTime+d);
   }catch{}
 }
 
-// ─── TIMER SVG ────────────────────────────────────────────────────────────────
-function ringSVG(total, rem, isRest, size=160){
-  const r=size/2-10, c=2*Math.PI*r;
+// ─── SVG RING ─────────────────────────────────────────────────────────────────
+function ring(total,rem,isRest,sz=160){
+  const r=sz/2-10,c=2*Math.PI*r;
   const pct=total>0?rem/total:0;
-  const color=isRest?"#3A4080":"#C6F135";
-  const label=isRest?"DESCANSO":"TRABAJA";
-  const labelColor=isRest?"#7A809E":"#8CAB20";
-  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#2E3348" stroke-width="10"/>
-    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="10"
-      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c*(1-pct)}"
-      transform="rotate(-90 ${size/2} ${size/2})" style="transition:stroke-dashoffset .15s linear"/>
-    <text x="50%" y="46%" text-anchor="middle" dominant-baseline="middle"
-      font-size="${Math.round(size*0.28)}" font-weight="700" fill="#F0F2FF" font-family="monospace">
-      ${rem<10?"0"+rem:rem}
-    </text>
+  const col=isRest?"#2D3A6B":"#FF6B35";
+  const tcol=isRest?"#6B7698":"#FFB347";
+  const lbl=isRest?"DESCANSO":"TRABAJA";
+  const s=rem<10?"0"+rem:""+rem;
+  return `<svg width="${sz}" height="${sz}" viewBox="0 0 ${sz} ${sz}">
+    <circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="#252D40" stroke-width="10"/>
+    <circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="${col}" stroke-width="10"
+      stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${(c*(1-pct)).toFixed(1)}"
+      transform="rotate(-90 ${sz/2} ${sz/2})" style="transition:stroke-dashoffset .15s linear"/>
+    <text x="50%" y="44%" text-anchor="middle" dominant-baseline="middle"
+      font-size="${Math.round(sz*.3)}" font-weight="800" fill="#F1F5FF" font-family="monospace">${s}</text>
     <text x="50%" y="70%" text-anchor="middle" dominant-baseline="middle"
-      font-size="${Math.round(size*0.1)}" fill="${labelColor}" font-family="sans-serif" font-weight="600">
-      ${label}
-    </text>
+      font-size="${Math.round(sz*.1)}" font-weight="700" fill="${tcol}" font-family="-apple-system,sans-serif">${lbl}</text>
   </svg>`;
 }
 
-// ─── RENDER HOME ──────────────────────────────────────────────────────────────
+// ─── HOME RENDER ──────────────────────────────────────────────────────────────
 function renderHome(){
-  // Stats
-  const entries=Object.entries(history).sort((a,b)=>b[0].localeCompare(a[0]));
+  const entries=Object.entries(hist).sort((a,b)=>b[0].localeCompare(a[0]));
   const week=entries.filter(([d])=>(Date.now()-new Date(d))/86400000<7);
-  document.getElementById("stat-week").textContent=week.length;
-  document.getElementById("stat-total").textContent=entries.length;
-  document.getElementById("stat-min").textContent=entries.length*20;
+  document.getElementById("s-week").textContent=week.length;
+  document.getElementById("s-total").textContent=entries.length;
+  document.getElementById("s-min").textContent=entries.length*20;
 
-  // Days
-  const list=document.getElementById("days-list");
-  list.innerHTML="";
+  const dl=document.getElementById("day-list");
+  dl.innerHTML="";
   DAYS.forEach(day=>{
-    const lastEntry=entries.find(([,id])=>id===day.id);
-    const lastDate=lastEntry?lastEntry[0].slice(5).replace("-","/"):"";
+    const last=entries.find(([,id])=>id===day.id);
+    const lastTxt=last?last[0].slice(5).replace("-","/ "):"";
     const div=document.createElement("div");
     div.className="day-card";
     div.innerHTML=`
-      <button class="day-header" onclick="togglePreview('${day.id}')">
-        <div class="day-badge" style="background:${day.color}22;border-color:${day.color};color:${day.color}">${day.id}</div>
+      <button class="day-btn" onclick="togglePrev('${day.id}')">
+        <div class="day-icon" style="background:${day.bg};border-color:${day.color};color:${day.color}">${day.id}</div>
         <div class="day-info">
           <div class="day-name">${day.name}</div>
           <div class="day-sub">${day.label}</div>
         </div>
-        <div class="day-meta">
-          ${lastDate?`<div class="day-last">Último: ${lastDate}</div>`:""}
-          <div class="day-count" style="color:${day.color}">${day.exercises.length} ejercicios · 3 rondas</div>
+        <div class="day-right">
+          ${lastTxt?`<div class="day-last">Último: ${lastTxt}</div>`:""}
+          <div class="day-cnt" style="color:${day.color}">${day.exercises.length} ej · 3 rondas</div>
         </div>
+        <span class="chevron" id="chv-${day.id}">⌄</span>
       </button>
-      <div class="day-preview" id="preview-${day.id}">
-        <div class="preview-list">
-          ${day.exercises.map((ex,i)=>`
-            <div class="preview-item">
-              <div class="preview-num">${i+1}</div>
-              <span class="preview-name">${ex.name}</span>
-              <span class="preview-muscle">${ex.muscles}</span>
-              <span class="preview-time">${ex.work}s</span>
-            </div>`).join("")}
+      <div class="preview-panel" id="prev-${day.id}">
+        <div>${day.exercises.map((ex,i)=>`
+          <div class="ex-preview-row">
+            <div class="ex-preview-num">${i+1}</div>
+            <div style="flex:1">
+              <span class="ex-preview-name">${ex.name}</span><br>
+              <span class="ex-preview-muscle">${ex.muscles}</span>
+            </div>
+            <span class="ex-preview-time">${ex.work}s</span>
+          </div>`).join("")}
         </div>
-        <button class="start-btn" style="background:${day.color}" onclick="startSession('${day.id}')">
+        <button class="start-day-btn" style="background:${day.color}" onclick="startSession('${day.id}')">
           Comenzar ${day.name} →
         </button>
       </div>`;
-    list.appendChild(div);
+    dl.appendChild(div);
   });
 
-  // History
-  const histSec=document.getElementById("history-section");
-  const histList=document.getElementById("history-list");
+  const hs=document.getElementById("hist-section");
+  const hl=document.getElementById("hist-list");
   if(entries.length>0){
-    histSec.style.display="block";
-    histList.innerHTML=entries.slice(0,7).map(([date,dayId])=>{
-      const d=DAYS.find(x=>x.id===dayId);
-      return `<div class="history-item" style="gap:12px">
-        <div class="history-dot" style="background:${d?.color||"#C6F135"}"></div>
-        <div class="history-name">${d?.name} — ${d?.label}</div>
-        <div class="history-date">${date.slice(5).replace("-","/")}</div>
+    hs.style.display="block";
+    hl.innerHTML=entries.slice(0,7).map(([date,id])=>{
+      const d=DAYS.find(x=>x.id===id);
+      return `<div class="hist-row">
+        <div class="hist-dot" style="background:${d?.color||"#FF6B35"}"></div>
+        <div class="hist-name">${d?.name} — ${d?.label}</div>
+        <div class="hist-date">${date.slice(5).replace("-","/")}</div>
       </div>`;
     }).join("");
-  } else {
-    histSec.style.display="none";
-  }
+  }else{ hs.style.display="none"; }
 }
 
-function togglePreview(dayId){
+function togglePrev(id){
   DAYS.forEach(d=>{
-    const el=document.getElementById("preview-"+d.id);
-    if(el) el.classList.remove("open");
+    if(d.id!==id){
+      document.getElementById("prev-"+d.id)?.classList.remove("open");
+      const c=document.getElementById("chv-"+d.id);
+      if(c) c.classList.remove("open");
+    }
   });
-  const el=document.getElementById("preview-"+dayId);
-  if(el) el.classList.toggle("open");
+  document.getElementById("prev-"+id)?.classList.toggle("open");
+  document.getElementById("chv-"+id)?.classList.toggle("open");
 }
 
 // ─── SESSION ──────────────────────────────────────────────────────────────────
-function startSession(dayId){
-  currentDayId=dayId;
-  round=1; exIdx=0; phase="work"; doneExIds=[]; running=false;
-  clearInterval(intervalId);
-  const day=DAYS.find(d=>d.id===dayId);
+function startSession(id){
+  dayId=id; round=1; exIdx=0; phase="work"; doneIds=[]; running=false;
+  clearInterval(iv);
+  const day=DAYS.find(d=>d.id===id);
   remaining=day.exercises[0].work;
-  showScreen("session-screen");
-  renderSession();
+  show("sess-screen");
+  renderSess();
 }
 
-function renderSession(){
-  const day=DAYS.find(d=>d.id===currentDayId);
-  const exs=day.exercises;
-  const ex=exs[exIdx];
+function renderSess(){
+  const day=DAYS.find(d=>d.id===dayId);
+  const exs=day.exercises, ex=exs[exIdx];
+  document.getElementById("s-round").textContent=`Ronda ${round} de ${ROUNDS}`;
+  document.getElementById("s-title").textContent=`${day.name} — ${day.label}`;
 
-  document.getElementById("sess-round").textContent=`Ronda ${round} de ${ROUNDS}`;
-  document.getElementById("sess-title").textContent=`${day.name} — ${day.label}`;
+  // dots
+  document.getElementById("s-dots").innerHTML=exs.map((_,i)=>
+    `<div class="pdot ${i<exIdx?"pdone":i===exIdx?"pactive":""}"></div>`
+  ).join("");
 
-  // Dots
-  const dots=document.getElementById("sess-dots");
-  dots.innerHTML=exs.map((_,i)=>`<div class="dot ${i<exIdx?"done":i===exIdx?"active":""}"></div>`).join("");
-
-  // Main content
+  // main
   if(phase==="roundrest"){
-    document.getElementById("sess-ex-num").textContent="Descansa entre rondas";
-    document.getElementById("sess-ex-name").textContent=`Ronda ${round+1} de ${ROUNDS} comenzará pronto`;
-    document.getElementById("sess-cue").textContent="Respira, hidratate, prepárate.";
+    document.getElementById("s-exlbl").textContent="Descansa entre rondas";
+    document.getElementById("s-extitle").textContent=`Ronda ${round+1} de ${ROUNDS} en breve`;
+    document.getElementById("s-cue").textContent="Respira, hidratate, prepárate.";
   } else {
-    document.getElementById("sess-ex-num").textContent=`Ejercicio ${exIdx+1} de ${exs.length}`;
-    document.getElementById("sess-ex-name").textContent=ex.name;
-    document.getElementById("sess-cue").textContent=phase==="rest"?"Prepárate para el siguiente ejercicio":ex.cue;
+    document.getElementById("s-exlbl").textContent=`Ejercicio ${exIdx+1} de ${exs.length}`;
+    document.getElementById("s-extitle").textContent=ex.name;
+    document.getElementById("s-cue").textContent=phase==="rest"?"Prepárate para el siguiente →":ex.cue;
   }
 
-  // Timer
   const isRest=phase!=="work";
-  document.getElementById("ring-container").innerHTML=ringSVG(
-    phase==="work"?ex.work:phase==="rest"?ex.rest:60,
-    remaining, isRest, 160
-  );
+  const total=phase==="work"?ex.work:phase==="rest"?ex.rest:60;
+  document.getElementById("ring-wrap").innerHTML=ring(total,remaining,isRest,160);
 
-  // Button
-  const btn=document.getElementById("sess-action");
-  btn.textContent=running?"Pausar":"Iniciar";
-  btn.style.background=running?"#2E3348":"#C6F135";
-  btn.style.color=running?"#F0F2FF":"#000";
+  const btn=document.getElementById("s-btn");
+  if(running){ btn.textContent="Pausar"; btn.style.background="var(--border)"; }
+  else { btn.textContent="Iniciar"; btn.style.background="var(--accent)"; }
+  btn.style.color="#fff";
 
-  // Cards
   renderCards(exs);
 }
 
 function renderCards(exs){
-  const container=document.getElementById("sess-cards");
-  container.innerHTML=exs.map((ex,i)=>{
-    const isActive=i===exIdx&&phase==="work";
-    const isDone=doneExIds.includes(ex.id);
-    return `
-      <div class="ex-card ${isActive?"active-ex":""} ${isDone?"done-ex":""}" id="excard-${ex.id}">
-        <button class="ex-card-header" onclick="toggleExCard('${ex.id}')">
-          <div class="ex-badge ${isActive?"active-badge":""} ${isDone?"done-badge":""}">${isDone?"✓":i+1}</div>
-          <div style="flex:1;min-width:0">
-            <div class="ex-title">${ex.name}</div>
-            <div class="ex-muscle">${ex.muscles}</div>
-          </div>
-          <div class="ex-timing">${ex.work}s · ${ex.rest}s</div>
-          <div class="ex-chev" id="chev-${ex.id}">⌄</div>
-        </button>
-        <div class="ex-body" id="exbody-${ex.id}">
-          <img class="ex-img" src="${ex.img}" alt="${ex.name}"
-            onerror="this.style.display='none';document.getElementById('imgerr-${ex.id}').style.display='flex'"/>
-          <div class="ex-img-error" id="imgerr-${ex.id}" style="display:none">Imagen no disponible</div>
-          <p class="ex-cue">${ex.cue}</p>
-          <div class="ex-tip">💡 ${ex.tip}</div>
+  document.getElementById("s-cards").innerHTML=exs.map((ex,i)=>{
+    const active=i===exIdx&&phase==="work";
+    const done=doneIds.includes(ex.id);
+    return `<div class="ex-card ${active?"is-active":""} ${done?"is-done":""}" id="ec-${ex.id}">
+      <button class="ex-card-btn" onclick="toggleCard('${ex.id}')">
+        <div class="ex-num ${active?"num-active":""} ${done?"num-done":""}">${done?"✓":i+1}</div>
+        <div style="flex:1;min-width:0">
+          <div class="ex-ttl">${ex.name}</div>
+          <div class="ex-mus">${ex.muscles}</div>
         </div>
-      </div>`;
+        <div class="ex-timing-lbl">${ex.work}s·${ex.rest}s</div>
+        <div class="ex-chev" id="ech-${ex.id}">⌄</div>
+      </button>
+      <div class="ex-body" id="eb-${ex.id}">
+        <img class="ex-gif" src="${ex.gif}" alt="${ex.name}"
+          onerror="this.style.display='none';document.getElementById('gf-${ex.id}').style.display='flex'"/>
+        <div class="gif-fallback" id="gf-${ex.id}">
+          <div class="gif-fallback-icon">🏋️</div>
+          <div class="gif-fallback-txt">Animación no disponible sin conexión</div>
+        </div>
+        <p class="ex-cue-p">${ex.cue}</p>
+        <div class="ex-tip-box">💡 ${ex.tip}</div>
+      </div>
+    </div>`;
   }).join("");
 }
 
-function toggleExCard(id){
-  const body=document.getElementById("exbody-"+id);
-  const chev=document.getElementById("chev-"+id);
+function toggleCard(id){
+  const body=document.getElementById("eb-"+id);
+  const chev=document.getElementById("ech-"+id);
   const open=body.classList.toggle("open");
   chev.style.transform=open?"rotate(180deg)":"none";
 }
 
 function toggleTimer(){
-  if(running){ pauseTimer(); } else { startTimer(); }
+  if(running) pauseTimer(); else startTimer();
 }
 
 function startTimer(){
-  running=true;
-  renderSession();
-  intervalId=setInterval(()=>{
+  running=true; renderSess();
+  const day=DAYS.find(d=>d.id===dayId);
+  iv=setInterval(()=>{
     remaining--;
-    // update ring only
-    const day=DAYS.find(d=>d.id===currentDayId);
     const ex=day.exercises[exIdx];
     const isRest=phase!=="work";
     const total=phase==="work"?ex.work:phase==="rest"?ex.rest:60;
-    document.getElementById("ring-container").innerHTML=ringSVG(total,remaining,isRest,160);
-    if(remaining<=0){ clearInterval(intervalId); advance(); }
+    document.getElementById("ring-wrap").innerHTML=ring(total,remaining,isRest,160);
+    if(remaining<=0){ clearInterval(iv); advance(); }
   },1000);
 }
 
 function pauseTimer(){
-  running=false;
-  clearInterval(intervalId);
-  const btn=document.getElementById("sess-action");
-  btn.textContent="Iniciar";
-  btn.style.background="#C6F135";
-  btn.style.color="#000";
+  running=false; clearInterval(iv);
+  const btn=document.getElementById("s-btn");
+  btn.textContent="Iniciar"; btn.style.background="var(--accent)";
 }
 
 function advance(){
-  const day=DAYS.find(d=>d.id===currentDayId);
-  const exs=day.exercises;
+  const day=DAYS.find(d=>d.id===dayId), exs=day.exercises;
   if(phase==="work"){
-    beep(440,0.15);
-    if(exIdx<exs.length-1){
-      phase="rest"; remaining=exs[exIdx].rest;
-    } else {
-      if(round<ROUNDS){ phase="roundrest"; remaining=60; }
-      else { showDone(); return; }
-    }
+    beep(440,.12);
+    if(exIdx<exs.length-1){ phase="rest"; remaining=exs[exIdx].rest; }
+    else if(round<ROUNDS){ phase="roundrest"; remaining=60; }
+    else { showDone(); return; }
   } else if(phase==="rest"){
-    beep(660,0.1);
-    doneExIds.push(exs[exIdx].id);
+    beep(660,.1);
+    doneIds.push(exs[exIdx].id);
     exIdx++; phase="work"; remaining=exs[exIdx].work;
-  } else if(phase==="roundrest"){
-    beep(880,0.2);
-    round++; exIdx=0; phase="work"; remaining=exs[0].work; doneExIds=[];
+  } else {
+    beep(880,.2);
+    round++; exIdx=0; phase="work"; remaining=exs[0].work; doneIds=[];
   }
-  running=true;
-  renderSession();
-  startTimer();
+  running=true; renderSess(); startTimer();
 }
 
 function showDone(){
   running=false;
-  const day=DAYS.find(d=>d.id===currentDayId);
-  document.getElementById("done-sub").textContent=
-    `${day.name} · ${ROUNDS} rondas · ${day.exercises.length*ROUNDS} series`;
-  showScreen("done-screen");
+  const day=DAYS.find(d=>d.id===dayId);
+  document.getElementById("d-sub").textContent=`${day.name} · ${ROUNDS} rondas`;
+  document.getElementById("d-series").textContent=day.exercises.length*ROUNDS;
+  document.getElementById("d-kcal").textContent=`~${day.kcal}`;
+  show("done-screen");
 }
 
 function finishSession(){
   const today=new Date().toISOString().split("T")[0];
-  history[today]=currentDayId;
-  try{localStorage.setItem("force_history",JSON.stringify(history));}catch{}
-  backToHome();
+  hist[today]=dayId;
+  try{ localStorage.setItem("force_v2",JSON.stringify(hist)); }catch{}
+  goHome();
 }
 
-function backToHome(){
-  running=false; clearInterval(intervalId);
-  showScreen("home-screen");
-  renderHome();
+function goHome(){
+  running=false; clearInterval(iv);
+  show("home-screen"); renderHome();
 }
 
-// ─── NAVIGATION ───────────────────────────────────────────────────────────────
-function showScreen(id){
+function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
 renderHome();
 </script>
 </body>
