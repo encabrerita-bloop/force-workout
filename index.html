@@ -9,321 +9,664 @@
 <title>FORCE — Entrenamiento 3 días</title>
 <style>
 :root{
-  --bg:#0A0E1A;
-  --surface:#111827;
-  --card:#1C2333;
-  --border:#252D40;
-  --accent:#FF6B35;
-  --accent2:#FFB347;
-  --blue:#3D7BF5;
-  --green:#22C55E;
-  --text:#F1F5FF;
-  --muted:#6B7698;
-  --rest-color:#2D3A6B;
+  --bg:#0A0E1A;--surface:#111827;--card:#1C2333;--border:#252D40;
+  --accent:#FF6B35;--accent2:#FFB347;--blue:#3D7BF5;--green:#22C55E;
+  --text:#F1F5FF;--muted:#6B7698;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
 html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;min-height:100vh;}
 button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}
 
-/* SCREENS */
 .screen{display:none;min-height:100vh;flex-direction:column;}
 .screen.active{display:flex;}
 
-/* ── HOME ── */
-.home-wrap{max-width:640px;margin:0 auto;width:100%;padding:0 18px;}
-
+/* HOME */
+.hw{max-width:640px;margin:0 auto;width:100%;padding:0 18px;}
 .top-bar{padding:44px 0 4px;display:flex;align-items:flex-end;justify-content:space-between;}
-.app-wordmark{font-size:36px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.app-tagline{font-size:12px;color:var(--muted);padding-bottom:6px;}
-
-.stats-strip{display:flex;gap:10px;margin:18px 0 28px;}
+.wordmark{font-size:36px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.tagline{font-size:12px;color:var(--muted);padding-bottom:6px;}
+.stats{display:flex;gap:10px;margin:18px 0 28px;}
 .stat{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;}
-.stat-val{font-size:26px;font-weight:800;color:var(--accent);}
-.stat-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
+.sv{font-size:26px;font-weight:800;color:var(--accent);}
+.sl{font-size:11px;color:var(--muted);margin-top:3px;}
+.shd{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+.dlist{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.dcard{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card);}
+.dbtn{width:100%;background:none;border:none;padding:18px 18px;display:flex;align-items:center;gap:14px;text-align:left;}
+.dicon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;border:2px solid;}
+.dname{font-size:17px;font-weight:700;color:var(--text);}
+.dsub{font-size:13px;color:var(--muted);margin-top:2px;}
+.dright{text-align:right;flex-shrink:0;}
+.dlast{font-size:11px;color:var(--muted);}
+.dcnt{font-size:13px;font-weight:600;margin-top:2px;}
+.chv{font-size:18px;color:var(--muted);transition:transform .2s;display:inline-block;margin-left:8px;}
+.chv.open{transform:rotate(180deg);}
+.ppanel{background:var(--surface);border-top:1px solid var(--border);padding:16px 18px;display:none;}
+.ppanel.open{display:block;}
+.prow{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
+.prow:last-child{border-bottom:none;}
+.pnum{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;}
+.pname{font-size:14px;font-weight:600;flex:1;}
+.pmus{font-size:12px;color:var(--muted);}
+.ptime{font-size:12px;color:var(--muted);margin-left:auto;flex-shrink:0;}
+.sbtn{width:100%;padding:13px 0;border-radius:10px;border:none;font-weight:800;font-size:15px;color:#fff;margin-top:14px;}
+.hsec{margin-bottom:40px;}
+.hrow{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:7px;}
+.hdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.hname{flex:1;font-size:14px;}
+.hdate{font-size:12px;color:var(--muted);}
+.ftip{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:40px;}
 
-.section-hd{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+/* SESSION */
+.shdr{padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg);}
+.bbtn{background:none;border:none;font-size:22px;color:var(--muted);padding:0 8px 0 0;}
+.smeta{flex:1;}
+.srl{font-size:12px;color:var(--muted);}
+.sdl{font-size:16px;font-weight:700;}
+.pdots{display:flex;gap:5px;align-items:center;}
+.pd{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .2s;}
+.pd.pdn{background:var(--green);}
+.pd.pac{background:var(--accent);}
+.smain{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 18px;gap:12px;}
+.selbl{font-size:13px;color:var(--muted);text-align:center;}
+.settl{font-size:21px;font-weight:800;text-align:center;line-height:1.2;}
+.scue{font-size:13px;color:var(--muted);text-align:center;max-width:300px;line-height:1.5;}
+.abtn{padding:14px 52px;border-radius:14px;border:none;font-size:17px;font-weight:800;transition:all .15s;}
 
-.day-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
-.day-card{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card);}
-.day-btn{width:100%;background:none;border:none;padding:18px 18px;display:flex;align-items:center;gap:14px;text-align:left;}
-.day-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;border:2px solid;}
-.day-info{flex:1;}
-.day-name{font-size:17px;font-weight:700;color:var(--text);}
-.day-sub{font-size:13px;color:var(--muted);margin-top:2px;}
-.day-right{text-align:right;flex-shrink:0;}
-.day-last{font-size:11px;color:var(--muted);}
-.day-cnt{font-size:13px;font-weight:600;margin-top:2px;}
-.chevron{font-size:18px;color:var(--muted);transition:transform .2s;display:inline-block;margin-left:8px;}
-.chevron.open{transform:rotate(180deg);}
+/* SVG exercise illustration */
+.ex-svg-wrap{width:100%;max-width:280px;height:180px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--surface);overflow:hidden;}
+.ex-svg-wrap svg{width:100%;height:100%;}
 
-.preview-panel{background:var(--surface);border-top:1px solid var(--border);padding:16px 18px;display:none;}
-.preview-panel.open{display:block;}
-.ex-preview-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);}
-.ex-preview-row:last-child{border-bottom:none;}
-.ex-preview-num{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;}
-.ex-preview-name{font-size:14px;font-weight:600;flex:1;}
-.ex-preview-muscle{font-size:12px;color:var(--muted);}
-.ex-preview-time{font-size:12px;color:var(--muted);margin-left:auto;flex-shrink:0;}
-.start-day-btn{width:100%;padding:13px 0;border-radius:10px;border:none;font-weight:800;font-size:15px;color:#fff;margin-top:14px;letter-spacing:.02em;}
+/* Cards */
+.eclist{padding:0 18px 24px;display:flex;flex-direction:column;gap:8px;}
+.ecard{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card);transition:border-color .2s;}
+.ecard.iac{border-color:var(--accent);}
+.ecard.idn{border-color:var(--green);background:#0D1F14;}
+.ecbtn{width:100%;display:flex;align-items:center;gap:10px;padding:13px 15px;background:none;border:none;text-align:left;}
+.enum{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--border);color:var(--muted);flex-shrink:0;transition:background .2s,color .2s;}
+.enum.nac{background:var(--accent);color:#fff;}
+.enum.ndn{background:var(--green);color:#fff;}
+.ettl{font-size:14px;font-weight:700;}
+.emus{font-size:12px;color:var(--muted);margin-top:1px;}
+.etm{font-size:11px;color:var(--muted);flex-shrink:0;}
+.echv{color:var(--muted);font-size:15px;transition:transform .2s;margin-left:4px;}
+.ebody{padding:0 15px 15px;border-top:1px solid var(--border);display:none;}
+.ebody.open{display:block;}
+.esvg{width:100%;height:160px;border-radius:10px;margin:12px 0 10px;background:var(--surface);display:flex;align-items:center;justify-content:center;}
+.ecue{font-size:13px;color:#C8D0E8;line-height:1.6;margin-bottom:9px;}
+.etip{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12.5px;color:var(--accent2);line-height:1.5;}
 
-.history-wrap{margin-bottom:40px;}
-.hist-row{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:7px;}
-.hist-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.hist-name{flex:1;font-size:14px;}
-.hist-date{font-size:12px;color:var(--muted);}
-
-.footer-tip{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:40px;}
-
-/* ── SESSION ── */
-.sess-header{padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg);}
-.back-btn{background:none;border:none;font-size:22px;color:var(--muted);padding:0 8px 0 0;}
-.sess-meta{flex:1;}
-.sess-round-lbl{font-size:12px;color:var(--muted);}
-.sess-day-lbl{font-size:16px;font-weight:700;}
-.progress-dots{display:flex;gap:5px;align-items:center;}
-.pdot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .2s;}
-.pdot.pdone{background:var(--green);}
-.pdot.pactive{background:var(--accent);}
-
-.sess-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 18px;gap:14px;}
-.sess-ex-lbl{font-size:13px;color:var(--muted);text-align:center;}
-.sess-ex-title{font-size:22px;font-weight:800;text-align:center;line-height:1.2;}
-.sess-cue-txt{font-size:13px;color:var(--muted);text-align:center;max-width:300px;line-height:1.5;}
-.action-btn{padding:14px 52px;border-radius:14px;border:none;font-size:17px;font-weight:800;transition:all .15s;letter-spacing:.02em;}
-
-/* Timer */
-#ring-wrap{position:relative;}
-
-/* Exercise accordion list */
-.ex-list{padding:0 18px 24px;display:flex;flex-direction:column;gap:8px;}
-.ex-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card);transition:border-color .2s;}
-.ex-card.is-active{border-color:var(--accent);}
-.ex-card.is-done{border-color:var(--green);background:#0D1F14;}
-.ex-card-btn{width:100%;display:flex;align-items:center;gap:10px;padding:13px 15px;background:none;border:none;text-align:left;}
-.ex-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--border);color:var(--muted);flex-shrink:0;transition:background .2s,color .2s;}
-.ex-num.num-active{background:var(--accent);color:#fff;}
-.ex-num.num-done{background:var(--green);color:#fff;}
-.ex-ttl{font-size:14px;font-weight:700;flex:1;}
-.ex-mus{font-size:12px;color:var(--muted);margin-top:1px;}
-.ex-timing-lbl{font-size:11px;color:var(--muted);flex-shrink:0;}
-.ex-chev{color:var(--muted);font-size:15px;transition:transform .2s;margin-left:4px;}
-.ex-body{padding:0 15px 15px;border-top:1px solid var(--border);display:none;}
-.ex-body.open{display:block;}
-.ex-gif{width:100%;max-height:200px;object-fit:contain;border-radius:10px;margin:12px 0 10px;background:var(--surface);display:block;}
-.gif-fallback{width:100%;height:130px;border-radius:10px;margin:12px 0 10px;background:var(--surface);display:none;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
-.gif-fallback-icon{font-size:32px;}
-.gif-fallback-txt{font-size:12px;color:var(--muted);}
-.ex-cue-p{font-size:13px;color:#C8D0E8;line-height:1.6;margin-bottom:9px;}
-.ex-tip-box{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 12px;font-size:12.5px;color:var(--accent2);line-height:1.5;}
-
-/* ── DONE ── */
-.done-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:18px;text-align:center;}
-.done-emoji{font-size:72px;}
-.done-ttl{font-size:30px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.done-sub{font-size:15px;color:var(--muted);}
-.done-stats{display:flex;gap:16px;margin:8px 0;}
-.done-stat{background:var(--surface);border-radius:12px;padding:14px 20px;text-align:center;}
-.done-stat-val{font-size:24px;font-weight:800;color:var(--accent);}
-.done-stat-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
-.done-cta{padding:14px 40px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:800;font-size:16px;margin-top:8px;}
+/* DONE */
+.donew{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:18px;text-align:center;}
+.demi{font-size:72px;}
+.dttl{font-size:30px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.dsubt{font-size:15px;color:var(--muted);}
+.dsts{display:flex;gap:16px;margin:8px 0;}
+.dst{background:var(--surface);border-radius:12px;padding:14px 20px;text-align:center;}
+.dstv{font-size:24px;font-weight:800;color:var(--accent);}
+.dstl{font-size:11px;color:var(--muted);margin-top:3px;}
+.dcta{padding:14px 40px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:800;font-size:16px;margin-top:8px;}
 </style>
 </head>
 <body>
 
 <!-- HOME -->
 <div id="home-screen" class="screen active">
-  <div class="home-wrap">
+  <div class="hw">
     <div class="top-bar">
-      <div class="app-wordmark">FORCE</div>
-      <div class="app-tagline">3 días · 20 min · Casa</div>
+      <div class="wordmark">FORCE</div>
+      <div class="tagline">3 días · 20 min · Casa</div>
     </div>
-    <div class="stats-strip">
-      <div class="stat"><div class="stat-val" id="s-week">0</div><div class="stat-lbl">esta semana</div></div>
-      <div class="stat"><div class="stat-val" id="s-total">0</div><div class="stat-lbl">sesiones</div></div>
-      <div class="stat"><div class="stat-val" id="s-min">0</div><div class="stat-lbl">minutos</div></div>
+    <div class="stats">
+      <div class="stat"><div class="sv" id="sw">0</div><div class="sl">esta semana</div></div>
+      <div class="stat"><div class="sv" id="st">0</div><div class="sl">sesiones</div></div>
+      <div class="stat"><div class="sv" id="sm">0</div><div class="sl">minutos</div></div>
     </div>
-    <div class="section-hd">Sesión de hoy</div>
-    <div class="day-list" id="day-list"></div>
-    <div id="hist-section" style="display:none">
-      <div class="section-hd">Historial</div>
-      <div class="history-wrap" id="hist-list"></div>
+    <div class="shd">Sesión de hoy</div>
+    <div class="dlist" id="dlist"></div>
+    <div id="hsec" style="display:none">
+      <div class="shd">Historial</div>
+      <div class="hsec" id="hlist"></div>
     </div>
-    <div class="footer-tip">40s trabajo · 20s descanso · 3 rondas · ~20 min<br>Descansa al menos 1 día entre sesiones.</div>
+    <div class="ftip">40s trabajo · 20s descanso · 3 rondas · ~20 min<br>Descansa al menos 1 día entre sesiones.</div>
   </div>
 </div>
 
 <!-- SESSION -->
 <div id="sess-screen" class="screen">
-  <div class="sess-header">
-    <button class="back-btn" onclick="goHome()">←</button>
-    <div class="sess-meta">
-      <div class="sess-round-lbl" id="s-round">Ronda 1 de 3</div>
-      <div class="sess-day-lbl" id="s-title">Día A</div>
+  <div class="shdr">
+    <button class="bbtn" onclick="goHome()">←</button>
+    <div class="smeta">
+      <div class="srl" id="sround">Ronda 1 de 3</div>
+      <div class="sdl" id="stitle">Día A</div>
     </div>
-    <div class="progress-dots" id="s-dots"></div>
+    <div class="pdots" id="sdots"></div>
   </div>
-  <div class="sess-main" id="s-main">
-    <div class="sess-ex-lbl" id="s-exlbl"></div>
-    <div class="sess-ex-title" id="s-extitle"></div>
-    <div id="ring-wrap"></div>
-    <div class="sess-cue-txt" id="s-cue"></div>
-    <button class="action-btn" id="s-btn" onclick="toggleTimer()" style="background:var(--accent);color:#fff;">Iniciar</button>
+  <div class="smain" id="smain">
+    <div class="selbl" id="selbl"></div>
+    <div class="settl" id="settl"></div>
+    <div id="ringwrap"></div>
+    <div class="scue" id="scue"></div>
+    <button class="abtn" id="sabtn" onclick="toggleTimer()" style="background:var(--accent);color:#fff;">Iniciar</button>
   </div>
-  <div class="ex-list" id="s-cards"></div>
+  <div class="eclist" id="scards"></div>
 </div>
 
 <!-- DONE -->
 <div id="done-screen" class="screen">
-  <div class="done-wrap">
-    <div class="done-emoji">🔥</div>
-    <div class="done-ttl">¡Sesión completa!</div>
-    <div class="done-sub" id="d-sub">Día A · 3 rondas</div>
-    <div class="done-stats">
-      <div class="done-stat"><div class="done-stat-val" id="d-series">12</div><div class="done-stat-lbl">series</div></div>
-      <div class="done-stat"><div class="done-stat-val">20</div><div class="done-stat-lbl">minutos</div></div>
-      <div class="done-stat"><div class="done-stat-val" id="d-kcal">~180</div><div class="done-stat-lbl">kcal est.</div></div>
+  <div class="donew">
+    <div class="demi">🔥</div>
+    <div class="dttl">¡Sesión completa!</div>
+    <div class="dsubt" id="dsub">Día A · 3 rondas</div>
+    <div class="dsts">
+      <div class="dst"><div class="dstv" id="dser">12</div><div class="dstl">series</div></div>
+      <div class="dst"><div class="dstv">20</div><div class="dstl">minutos</div></div>
+      <div class="dst"><div class="dstv" id="dkcal">~180</div><div class="dstl">kcal est.</div></div>
     </div>
-    <button class="done-cta" onclick="finishSession()">Terminar →</button>
+    <button class="dcta" onclick="finishSession()">Terminar →</button>
   </div>
 </div>
 
 <script>
+// ─── SVG ILLUSTRATIONS ────────────────────────────────────────────────────────
+// Stick figure: head cx,cy r=12 | body lines | limbs animated
+// ViewBox 0 0 200 180 — figure centered ~100,90
+
+const SVGS = {
+
+squat: `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .fig{stroke:#FF6B35;stroke-width:3;stroke-linecap:round;fill:none;}
+    .head{fill:#FF6B35;stroke:none;}
+  </style>
+  <!-- ground -->
+  <line x1="40" y1="155" x2="160" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- STANDING phase -->
+  <g id="sq-stand">
+    <circle class="head" cx="100" cy="45" r="11"/>
+    <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+    <!-- arms down -->
+    <line class="fig" x1="100" y1="68" x2="82" y2="90"/>
+    <line class="fig" x1="100" y1="68" x2="118" y2="90"/>
+    <!-- legs -->
+    <line class="fig" x1="100" y1="105" x2="84" y2="135"/>
+    <line class="fig" x1="100" y1="105" x2="116" y2="135"/>
+    <!-- feet -->
+    <line class="fig" x1="84" y1="135" x2="76" y2="155"/>
+    <line class="fig" x1="116" y1="135" x2="124" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- SQUAT phase -->
+  <g id="sq-down">
+    <circle class="head" cx="100" cy="72" r="11"/>
+    <line class="fig" x1="100" y1="83" x2="100" y2="115"/>
+    <!-- arms forward -->
+    <line class="fig" x1="100" y1="93" x2="72" y2="93"/>
+    <line class="fig" x1="100" y1="93" x2="128" y2="93"/>
+    <!-- legs bent wide -->
+    <line class="fig" x1="100" y1="115" x2="72" y2="135"/>
+    <line class="fig" x1="100" y1="115" x2="128" y2="135"/>
+    <!-- lower legs -->
+    <line class="fig" x1="72" y1="135" x2="68" y2="155"/>
+    <line class="fig" x1="128" y1="135" x2="132" y2="155"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- label -->
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Squat</text>
+</svg>`,
+
+pushup: `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#FF6B35;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#FF6B35;stroke:none;}</style>
+  <line x1="20" y1="140" x2="180" y2="140" stroke="#252D40" stroke-width="2"/>
+  <!-- UP position -->
+  <g>
+    <circle class="head" cx="155" cy="88" r="11"/>
+    <line class="fig" x1="145" y1="93" x2="115" y2="110"/>
+    <line class="fig" x1="115" y1="110" x2="55" y2="110"/>
+    <line class="fig" x1="55" y1="110" x2="45" y2="140"/>
+    <line class="fig" x1="115" y1="110" x2="110" y2="140"/>
+    <!-- arms up -->
+    <line class="fig" x1="115" y1="110" x2="130" y2="130"/>
+    <line class="fig" x1="130" y1="130" x2="150" y2="140"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- DOWN position -->
+  <g>
+    <circle class="head" cx="155" cy="115" r="11"/>
+    <line class="fig" x1="145" y1="120" x2="115" y2="125"/>
+    <line class="fig" x1="115" y1="125" x2="55" y2="125"/>
+    <line class="fig" x1="55" y1="125" x2="45" y2="140"/>
+    <line class="fig" x1="115" y1="125" x2="110" y2="140"/>
+    <!-- arms bent -->
+    <line class="fig" x1="115" y1="125" x2="132" y2="135"/>
+    <line class="fig" x1="132" y1="135" x2="150" y2="140"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="158" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Push-up</text>
+</svg>`,
+
+'shoulder-press': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#3D7BF5;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#3D7BF5;stroke:none;}</style>
+  <line x1="60" y1="155" x2="140" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- Arms DOWN -->
+  <g>
+    <circle class="head" cx="100" cy="45" r="11"/>
+    <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+    <line class="fig" x1="100" y1="68" x2="75" y2="90"/>
+    <line class="fig" x1="75" y1="90" x2="68" y2="68"/>
+    <line class="fig" x1="100" y1="68" x2="125" y2="90"/>
+    <line class="fig" x1="125" y1="90" x2="132" y2="68"/>
+    <!-- weights -->
+    <rect x="61" y="62" width="10" height="10" rx="2" fill="#3D7BF5" opacity="0.7"/>
+    <rect x="129" y="62" width="10" height="10" rx="2" fill="#3D7BF5" opacity="0.7"/>
+    <line class="fig" x1="100" y1="105" x2="88" y2="135"/>
+    <line class="fig" x1="100" y1="105" x2="112" y2="135"/>
+    <line class="fig" x1="88" y1="135" x2="84" y2="155"/>
+    <line class="fig" x1="112" y1="135" x2="116" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- Arms UP -->
+  <g>
+    <circle class="head" cx="100" cy="45" r="11"/>
+    <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+    <line class="fig" x1="100" y1="68" x2="72" y2="55"/>
+    <line class="fig" x1="72" y1="55" x2="70" y2="30"/>
+    <line class="fig" x1="100" y1="68" x2="128" y2="55"/>
+    <line class="fig" x1="128" y1="55" x2="130" y2="30"/>
+    <!-- weights up -->
+    <rect x="63" y="24" width="10" height="10" rx="2" fill="#3D7BF5" opacity="0.7"/>
+    <rect x="127" y="24" width="10" height="10" rx="2" fill="#3D7BF5" opacity="0.7"/>
+    <line class="fig" x1="100" y1="105" x2="88" y2="135"/>
+    <line class="fig" x1="100" y1="105" x2="112" y2="135"/>
+    <line class="fig" x1="88" y1="135" x2="84" y2="155"/>
+    <line class="fig" x1="112" y1="135" x2="116" y2="155"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Shoulder Press</text>
+</svg>`,
+
+'reverse-lunge': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#FF6B35;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#FF6B35;stroke:none;}</style>
+  <line x1="30" y1="155" x2="170" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- STAND -->
+  <g>
+    <circle class="head" cx="100" cy="45" r="11"/>
+    <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+    <line class="fig" x1="100" y1="70" x2="82" y2="90"/>
+    <line class="fig" x1="100" y1="70" x2="118" y2="90"/>
+    <line class="fig" x1="100" y1="105" x2="88" y2="135"/>
+    <line class="fig" x1="100" y1="105" x2="112" y2="135"/>
+    <line class="fig" x1="88" y1="135" x2="84" y2="155"/>
+    <line class="fig" x1="112" y1="135" x2="116" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2.4s" repeatCount="indefinite"/>
+  </g>
+  <!-- LUNGE BACK -->
+  <g>
+    <circle class="head" cx="110" cy="55" r="11"/>
+    <line class="fig" x1="110" y1="66" x2="105" y2="108"/>
+    <line class="fig" x1="105" y1="80" x2="88" y2="95"/>
+    <line class="fig" x1="105" y1="80" x2="122" y2="95"/>
+    <!-- front leg -->
+    <line class="fig" x1="105" y1="108" x2="118" y2="130"/>
+    <line class="fig" x1="118" y1="130" x2="130" y2="155"/>
+    <!-- back leg bent -->
+    <line class="fig" x1="105" y1="108" x2="80" y2="130"/>
+    <line class="fig" x1="80" y1="130" x2="70" y2="155"/>
+    <!-- back knee dot -->
+    <circle cx="80" cy="130" r="4" fill="#FF6B35" opacity="0.5"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2.4s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Reverse Lunge</text>
+</svg>`,
+
+'band-row': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#22C55E;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#22C55E;stroke:none;}.band{stroke:#FFB347;stroke-width:2.5;stroke-dasharray:5,3;fill:none;}</style>
+  <line x1="20" y1="155" x2="180" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- anchor -->
+  <rect x="20" y="90" width="8" height="30" rx="3" fill="#252D40"/>
+  <!-- ARMS EXTENDED -->
+  <g>
+    <circle class="head" cx="130" cy="70" r="11"/>
+    <line class="fig" x1="130" y1="81" x2="125" y2="120"/>
+    <!-- torso inclined -->
+    <line class="fig" x1="125" y1="95" x2="100" y2="100"/>
+    <line class="fig" x1="100" y1="100" x2="45" y2="105"/>
+    <!-- band extended -->
+    <path class="band" d="M28,105 Q60,100 100,100"/>
+    <!-- legs -->
+    <line class="fig" x1="125" y1="120" x2="138" y2="155"/>
+    <line class="fig" x1="125" y1="120" x2="112" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- ARMS PULLED -->
+  <g>
+    <circle class="head" cx="130" cy="70" r="11"/>
+    <line class="fig" x1="130" y1="81" x2="125" y2="120"/>
+    <line class="fig" x1="125" y1="95" x2="110" y2="95"/>
+    <line class="fig" x1="110" y1="95" x2="80" y2="100"/>
+    <!-- band compressed -->
+    <path class="band" d="M28,105 Q50,105 80,100"/>
+    <!-- elbow pulled back -->
+    <line class="fig" x1="125" y1="95" x2="140" y2="90"/>
+    <line class="fig" x1="125" y1="95" x2="140" y2="100"/>
+    <line class="fig" x1="125" y1="120" x2="138" y2="155"/>
+    <line class="fig" x1="125" y1="120" x2="112" y2="155"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Band Row</text>
+</svg>`,
+
+rdl: `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#22C55E;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#22C55E;stroke:none;}</style>
+  <line x1="40" y1="155" x2="160" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- STAND -->
+  <g>
+    <circle class="head" cx="100" cy="45" r="11"/>
+    <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+    <!-- dumbbells at sides -->
+    <line class="fig" x1="100" y1="70" x2="78" y2="80"/>
+    <line class="fig" x1="78" y1="80" x2="72" y2="105"/>
+    <rect x="64" y="102" width="12" height="8" rx="2" fill="#22C55E" opacity="0.7"/>
+    <line class="fig" x1="100" y1="70" x2="122" y2="80"/>
+    <line class="fig" x1="122" y1="80" x2="128" y2="105"/>
+    <rect x="124" y="102" width="12" height="8" rx="2" fill="#22C55E" opacity="0.7"/>
+    <line class="fig" x1="100" y1="105" x2="88" y2="135"/>
+    <line class="fig" x1="100" y1="105" x2="112" y2="135"/>
+    <line class="fig" x1="88" y1="135" x2="84" y2="155"/>
+    <line class="fig" x1="112" y1="135" x2="116" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2.2s" repeatCount="indefinite"/>
+  </g>
+  <!-- HINGE -->
+  <g>
+    <circle class="head" cx="65" cy="85" r="11"/>
+    <!-- spine flat -->
+    <line class="fig" x1="72" y1="90" x2="120" y2="108"/>
+    <!-- dumbbells hanging -->
+    <line class="fig" x1="90" y1="100" x2="82" y2="130"/>
+    <rect x="74" y="126" width="12" height="8" rx="2" fill="#22C55E" opacity="0.7"/>
+    <line class="fig" x1="110" y1="106" x2="118" y2="132"/>
+    <rect x="114" y="128" width="12" height="8" rx="2" fill="#22C55E" opacity="0.7"/>
+    <!-- legs straight -->
+    <line class="fig" x1="120" y1="108" x2="122" y2="140"/>
+    <line class="fig" x1="122" y1="140" x2="120" y2="155"/>
+    <line class="fig" x1="120" y1="108" x2="132" y2="140"/>
+    <line class="fig" x1="132" y1="140" x2="130" y2="155"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2.2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">RDL</text>
+</svg>`,
+
+'band-pull-apart': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#22C55E;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#22C55E;stroke:none;}.band{stroke:#FFB347;stroke-width:3;fill:none;}</style>
+  <line x1="40" y1="155" x2="160" y2="155" stroke="#252D40" stroke-width="2"/>
+  <circle class="head" cx="100" cy="45" r="11"/>
+  <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+  <line class="fig" x1="100" y1="105" x2="88" y2="135"/>
+  <line class="fig" x1="100" y1="105" x2="112" y2="135"/>
+  <line class="fig" x1="88" y1="135" x2="84" y2="155"/>
+  <line class="fig" x1="112" y1="135" x2="116" y2="155"/>
+  <!-- Arms + band animated -->
+  <!-- CLOSE -->
+  <g>
+    <line class="fig" x1="100" y1="72" x2="75" y2="72"/>
+    <line class="fig" x1="100" y1="72" x2="125" y2="72"/>
+    <path class="band" d="M75,72 Q100,72 125,72"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- OPEN -->
+  <g>
+    <line class="fig" x1="100" y1="72" x2="48" y2="72"/>
+    <line class="fig" x1="100" y1="72" x2="152" y2="72"/>
+    <path class="band" d="M48,72 Q100,85 152,72"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Band Pull Apart</text>
+</svg>`,
+
+'hip-thrust': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#22C55E;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#22C55E;stroke:none;}</style>
+  <line x1="20" y1="155" x2="180" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- sofa/bench -->
+  <rect x="25" y="110" width="45" height="15" rx="4" fill="#252D40"/>
+  <!-- DOWN -->
+  <g>
+    <circle class="head" cx="42" cy="98" r="11"/>
+    <line class="fig" x1="42" y1="109" x2="70" y2="120"/>
+    <line class="fig" x1="70" y1="120" x2="100" y2="125"/>
+    <!-- legs bent down -->
+    <line class="fig" x1="100" y1="125" x2="120" y2="145"/>
+    <line class="fig" x1="120" y1="145" x2="140" y2="155"/>
+    <line class="fig" x1="100" y1="125" x2="110" y2="145"/>
+    <line class="fig" x1="110" y1="145" x2="130" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- UP -->
+  <g>
+    <circle class="head" cx="42" cy="98" r="11"/>
+    <line class="fig" x1="42" y1="109" x2="70" y2="110"/>
+    <line class="fig" x1="70" y1="110" x2="105" y2="100"/>
+    <!-- legs bent up -->
+    <line class="fig" x1="105" y1="100" x2="125" y2="125"/>
+    <line class="fig" x1="125" y1="125" x2="140" y2="155"/>
+    <line class="fig" x1="105" y1="100" x2="115" y2="127"/>
+    <line class="fig" x1="115" y1="127" x2="130" y2="155"/>
+    <!-- band -->
+    <line x1="80" y1="97" x2="110" y2="97" stroke="#FFB347" stroke-width="4" stroke-linecap="round"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Hip Thrust</text>
+</svg>`,
+
+'goblet-squat': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#FF6B35;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#FF6B35;stroke:none;}</style>
+  <line x1="40" y1="155" x2="160" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- STAND -->
+  <g>
+    <circle class="head" cx="100" cy="45" r="11"/>
+    <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+    <!-- dumbbell at chest -->
+    <rect x="87" y="60" width="26" height="14" rx="3" fill="#FF6B35" opacity="0.6"/>
+    <line class="fig" x1="100" y1="70" x2="82" y2="72"/>
+    <line class="fig" x1="100" y1="70" x2="118" y2="72"/>
+    <line class="fig" x1="100" y1="105" x2="85" y2="135"/>
+    <line class="fig" x1="100" y1="105" x2="115" y2="135"/>
+    <line class="fig" x1="85" y1="135" x2="80" y2="155"/>
+    <line class="fig" x1="115" y1="135" x2="120" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- SQUAT DEEP -->
+  <g>
+    <circle class="head" cx="100" cy="72" r="11"/>
+    <line class="fig" x1="100" y1="83" x2="100" y2="112"/>
+    <rect x="87" y="82" width="26" height="14" rx="3" fill="#FF6B35" opacity="0.6"/>
+    <line class="fig" x1="100" y1="90" x2="74" y2="95"/>
+    <line class="fig" x1="100" y1="90" x2="126" y2="95"/>
+    <line class="fig" x1="100" y1="112" x2="68" y2="130"/>
+    <line class="fig" x1="100" y1="112" x2="132" y2="130"/>
+    <line class="fig" x1="68" y1="130" x2="62" y2="155"/>
+    <line class="fig" x1="132" y1="130" x2="138" y2="155"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Goblet Squat</text>
+</svg>`,
+
+'dead-bug': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#FF6B35;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#FF6B35;stroke:none;}</style>
+  <!-- floor -->
+  <line x1="20" y1="115" x2="180" y2="115" stroke="#252D40" stroke-width="2"/>
+  <!-- body on floor (static) -->
+  <circle class="head" cx="155" cy="100" r="11"/>
+  <line class="fig" x1="145" y1="103" x2="70" y2="103"/>
+  <!-- PHASE A: R arm up + L leg up -->
+  <g>
+    <!-- right arm up -->
+    <line class="fig" x1="130" y1="103" x2="145" y2="80"/>
+    <line class="fig" x1="145" y1="80" x2="158" y2="58"/>
+    <!-- left arm down -->
+    <line class="fig" x1="110" y1="103" x2="100" y2="115"/>
+    <!-- right leg down -->
+    <line class="fig" x1="85" y1="103" x2="75" y2="115"/>
+    <!-- left leg up bent -->
+    <line class="fig" x1="70" y1="103" x2="50" y2="90"/>
+    <line class="fig" x1="50" y1="90" x2="35" y2="75"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2.4s" repeatCount="indefinite"/>
+  </g>
+  <!-- PHASE B: L arm up + R leg up -->
+  <g>
+    <!-- left arm up -->
+    <line class="fig" x1="110" y1="103" x2="100" y2="80"/>
+    <line class="fig" x1="100" y1="80" x2="88" y2="58"/>
+    <!-- right arm down -->
+    <line class="fig" x1="130" y1="103" x2="140" y2="115"/>
+    <!-- left leg down -->
+    <line class="fig" x1="70" y1="103" x2="60" y2="115"/>
+    <!-- right leg up bent -->
+    <line class="fig" x1="85" y1="103" x2="100" y2="90"/>
+    <line class="fig" x1="100" y1="90" x2="115" y2="75"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2.4s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="135" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Dead Bug</text>
+</svg>`,
+
+'mountain-climber': `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#FF6B35;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#FF6B35;stroke:none;}</style>
+  <line x1="20" y1="155" x2="180" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- hands on floor -->
+  <circle class="head" cx="158" cy="85" r="11"/>
+  <line class="fig" x1="148" y1="90" x2="110" y2="105"/>
+  <!-- arms -->
+  <line class="fig" x1="148" y1="92" x2="162" y2="115"/>
+  <line class="fig" x1="162" y1="115" x2="168" y2="140"/>
+  <line class="fig" x1="148" y1="92" x2="138" y2="115"/>
+  <line class="fig" x1="138" y1="115" x2="142" y2="140"/>
+  <!-- PHASE A: R knee forward -->
+  <g>
+    <line class="fig" x1="110" y1="105" x2="100" y2="125"/>
+    <line class="fig" x1="100" y1="125" x2="95" y2="155"/>
+    <line class="fig" x1="110" y1="105" x2="72" y2="120"/>
+    <!-- R knee pulled -->
+    <line class="fig" x1="72" y1="120" x2="110" y2="130"/>
+    <line class="fig" x1="110" y1="130" x2="125" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="1.2s" repeatCount="indefinite"/>
+  </g>
+  <!-- PHASE B: L knee forward -->
+  <g>
+    <line class="fig" x1="110" y1="105" x2="72" y2="120"/>
+    <line class="fig" x1="72" y1="120" x2="60" y2="155"/>
+    <line class="fig" x1="110" y1="105" x2="100" y2="125"/>
+    <!-- L knee pulled -->
+    <line class="fig" x1="100" y1="125" x2="130" y2="128"/>
+    <line class="fig" x1="130" y1="128" x2="140" y2="155"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="1.2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Mountain Climber</text>
+</svg>`,
+
+thruster: `<svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <style>.fig{stroke:#FF6B35;stroke-width:3;stroke-linecap:round;fill:none;}.head{fill:#FF6B35;stroke:none;}</style>
+  <line x1="40" y1="155" x2="160" y2="155" stroke="#252D40" stroke-width="2"/>
+  <!-- SQUAT position with dumbbells at shoulders -->
+  <g>
+    <circle class="head" cx="100" cy="72" r="11"/>
+    <line class="fig" x1="100" y1="83" x2="100" y2="112"/>
+    <line class="fig" x1="100" y1="88" x2="76" y2="88"/>
+    <rect x="64" y="82" width="12" height="10" rx="2" fill="#FF6B35" opacity="0.7"/>
+    <line class="fig" x1="100" y1="88" x2="124" y2="88"/>
+    <rect x="124" y="82" width="12" height="10" rx="2" fill="#FF6B35" opacity="0.7"/>
+    <line class="fig" x1="100" y1="112" x2="68" y2="130"/>
+    <line class="fig" x1="100" y1="112" x2="132" y2="130"/>
+    <line class="fig" x1="68" y1="130" x2="62" y2="155"/>
+    <line class="fig" x1="132" y1="130" x2="138" y2="155"/>
+    <animate attributeName="opacity" values="1;1;0;0;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- PRESS overhead -->
+  <g>
+    <circle class="head" cx="100" cy="45" r="11"/>
+    <line class="fig" x1="100" y1="56" x2="100" y2="105"/>
+    <line class="fig" x1="100" y1="65" x2="72" y2="50"/>
+    <line class="fig" x1="72" y1="50" x2="68" y2="28"/>
+    <rect x="60" y="20" width="12" height="10" rx="2" fill="#FF6B35" opacity="0.7"/>
+    <line class="fig" x1="100" y1="65" x2="128" y2="50"/>
+    <line class="fig" x1="128" y1="50" x2="132" y2="28"/>
+    <rect x="128" y="20" width="12" height="10" rx="2" fill="#FF6B35" opacity="0.7"/>
+    <line class="fig" x1="100" y1="105" x2="88" y2="135"/>
+    <line class="fig" x1="100" y1="105" x2="112" y2="135"/>
+    <line class="fig" x1="88" y1="135" x2="84" y2="155"/>
+    <line class="fig" x1="112" y1="135" x2="116" y2="155"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" dur="2s" repeatCount="indefinite"/>
+  </g>
+  <text x="100" y="172" text-anchor="middle" fill="#6B7698" font-size="11" font-family="-apple-system,sans-serif">Thruster</text>
+</svg>`
+};
+
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 const DAYS = [
   {
-    id:"A", name:"Día A", label:"Empuje + Pierna",
-    color:"#3D7BF5", bg:"rgba(61,123,245,.12)",
-    kcal:180,
+    id:"A",name:"Día A",label:"Empuje + Pierna",color:"#3D7BF5",bg:"rgba(61,123,245,.12)",kcal:180,
     exercises:[
-      {
-        id:"squat", name:"Squat con banda",
-        muscles:"Piernas · Glúteos · Core",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/5z4q0v91sNYAAAAd/squats-exercise.gif",
-        cue:"Pies a lo ancho de hombros. Baja como si fueras a sentarte en una silla baja, rodillas hacia afuera siguiendo la punta de los pies. Espalda recta. Sube apretando glúteos.",
-        tip:"La banda sobre las rodillas activa los glúteos medios — clave para tu pelvis."
-      },
-      {
-        id:"pushup", name:"Push-up",
-        muscles:"Pecho · Hombros · Tríceps",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/0PnchcCC_0QAAAAd/push-up.gif",
-        cue:"Manos a lo ancho de hombros. Cuerpo recto de cabeza a talones — no dejes caer la cadera. Baja el pecho al suelo. Modifica apoyando rodillas si es necesario.",
-        tip:"Mete el mentón ligeramente al bajar — protege tu cervical durante el movimiento."
-      },
-      {
-        id:"shoulder-press", name:"Shoulder Press con mancuerna",
-        muscles:"Hombros · Tríceps · Core",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/EzRpaFItz6YAAAAC/shoulder-press-gym.gif",
-        cue:"De pie, mancuernas a la altura de los hombros, codos a 90°. Empuja hacia arriba hasta extender completamente los brazos. Baja con control en 2-3 segundos.",
-        tip:"Activa el core antes de cada rep — evita arquear la espalda baja al empujar."
-      },
-      {
-        id:"reverse-lunge", name:"Reverse Lunge",
-        muscles:"Piernas · Glúteos · Equilibrio",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/NP9p8-YAaFsAAAAC/reverse-lunge-exercise.gif",
-        cue:"De pie, paso grande hacia atrás. La rodilla trasera baja casi al suelo sin tocarlo. Regresa empujando con el talón de la pierna delantera. Alterna lados cada rep.",
-        tip:"El lunge hacia atrás protege la rodilla más que el frontal — ideal para tu diagnóstico."
-      },
+      {id:"squat",name:"Squat con banda",muscles:"Piernas · Glúteos · Core",work:40,rest:20,
+       cue:"Pies a lo ancho de hombros. Baja como si te sentaras en una silla, rodillas siguiendo la punta del pie. Espalda recta. Sube apretando glúteos.",
+       tip:"La banda sobre las rodillas activa los glúteos medios — clave para tu pelvis."},
+      {id:"pushup",name:"Push-up",muscles:"Pecho · Hombros · Tríceps",work:40,rest:20,
+       cue:"Manos a lo ancho de hombros. Cuerpo en línea recta. Baja el pecho al suelo. Modifica apoyando rodillas si es necesario.",
+       tip:"Mete el mentón ligeramente al bajar — protege tu cervical."},
+      {id:"shoulder-press",name:"Shoulder Press",muscles:"Hombros · Tríceps · Core",work:40,rest:20,
+       cue:"De pie, mancuernas a los hombros. Empuja hacia arriba extendiendo los brazos. Baja en 2-3 segundos con control.",
+       tip:"Activa el core antes de cada rep — evita arquear la espalda baja."},
+      {id:"reverse-lunge",name:"Reverse Lunge",muscles:"Piernas · Glúteos · Equilibrio",work:40,rest:20,
+       cue:"Paso grande hacia atrás. Rodilla trasera baja sin tocar el suelo. Regresa empujando con el talón delantero. Alterna lados.",
+       tip:"El lunge hacia atrás protege la rodilla más que el frontal — ideal para tu diagnóstico."},
     ]
   },
   {
-    id:"B", name:"Día B", label:"Jale + Glúteo",
-    color:"#22C55E", bg:"rgba(34,197,94,.12)",
-    kcal:170,
+    id:"B",name:"Día B",label:"Jale + Glúteo",color:"#22C55E",bg:"rgba(34,197,94,.12)",kcal:170,
     exercises:[
-      {
-        id:"band-row", name:"Band Row",
-        muscles:"Espalda media · Bíceps · Postura",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/HjVNIKqjJHYAAAAC/resistance-band-row.gif",
-        cue:"Banda anclada al frente (puerta, poste). De pie o sentado, jala los codos directo hacia atrás juntando los omóplatos. Pecho arriba, codo pegado al cuerpo.",
-        tip:"Concéntrate en juntar los omóplatos — esto refuerza directamente lo que el Dr. Bruno está corrigiendo."
-      },
-      {
-        id:"rdl", name:"RDL con mancuerna",
-        muscles:"Isquiotibiales · Glúteos · Espalda baja",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/rVeEmRuK5GIAAAAC/rdl-romanian-deadlift.gif",
-        cue:"De pie, mancuernas al frente. Empuja las caderas hacia atrás (como cerrando una puerta con el trasero), rodillas ligeramente flexionadas. Baja hasta sentir tensión en los isquiotibiales. Regresa apretando glúteos.",
-        tip:"NUNCA redondees la espalda baja — este movimiento es el más importante para tu L4-L5."
-      },
-      {
-        id:"band-pull-apart", name:"Band Pull Apart",
-        muscles:"Omóplatos · Manguito rotador · Postura",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/9Dp_pFiKInsAAAAC/band-pull-apart-exercise.gif",
-        cue:"De pie, banda horizontal frente al pecho, palmas hacia abajo. Abre los brazos hacia los lados estirando la banda hasta tocar el pecho. Junta los omóplatos al máximo.",
-        tip:"Complementa tu rutina de HealthSource — refuerza lo que el Dr. Bruno ajusta en cada cita."
-      },
-      {
-        id:"hip-thrust", name:"Hip Thrust con banda",
-        muscles:"Glúteos · Core · Estabilidad pélvica",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/X0KptJw8MHYAAAAC/hip-thrust-exercise.gif",
-        cue:"Espalda alta apoyada en el sofá/cama, rodillas dobladas, pies planos. Banda sobre las caderas. Empuja caderas hacia el techo apretando glúteos. Mantén 1 segundo arriba.",
-        tip:"El ejercicio más efectivo para glúteos — estabiliza tu pelvis y protege L4-L5."
-      },
+      {id:"band-row",name:"Band Row",muscles:"Espalda · Bíceps · Postura",work:40,rest:20,
+       cue:"Banda anclada al frente. Jala los codos hacia atrás juntando los omóplatos. Pecho arriba.",
+       tip:"Concéntrate en juntar los omóplatos — refuerza lo que el Dr. Bruno está corrigiendo."},
+      {id:"rdl",name:"RDL con mancuerna",muscles:"Isquiotibiales · Glúteos · Espalda baja",work:40,rest:20,
+       cue:"Empuja las caderas hacia atrás con rodillas ligeramente flexionadas. Baja hasta sentir tensión en los isquiotibiales. Regresa apretando glúteos.",
+       tip:"NUNCA redondees la espalda baja — el ejercicio más importante para tu L4-L5."},
+      {id:"band-pull-apart",name:"Band Pull Apart",muscles:"Omóplatos · Manguito rotador",work:40,rest:20,
+       cue:"Banda horizontal al frente. Abre los brazos estirando la banda hasta tocar el pecho. Junta omóplatos al máximo.",
+       tip:"Complementa tu rutina de HealthSource — refuerza lo que el Dr. Bruno ajusta."},
+      {id:"hip-thrust",name:"Hip Thrust con banda",muscles:"Glúteos · Core · Pelvis",work:40,rest:20,
+       cue:"Espalda en el sofá, rodillas dobladas, pies planos. Empuja caderas al techo apretando glúteos. Mantén 1 segundo arriba.",
+       tip:"El ejercicio más efectivo para glúteos — estabiliza tu pelvis y protege L4-L5."},
     ]
   },
   {
-    id:"C", name:"Día C", label:"Cuerpo completo",
-    color:"#FF6B35", bg:"rgba(255,107,53,.12)",
-    kcal:200,
+    id:"C",name:"Día C",label:"Cuerpo completo",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:200,
     exercises:[
-      {
-        id:"goblet-squat", name:"Goblet Squat",
-        muscles:"Piernas · Core · Movilidad",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/eFi7h8UxMkwAAAAC/goblet-squat-exercise.gif",
-        cue:"Sostén una mancuerna vertical contra el pecho. Pies algo más abiertos que los hombros. Baja profundo manteniendo el pecho bien arriba. Los codos empujan las rodillas hacia afuera en la bajada.",
-        tip:"La mancuerna al pecho fuerza la espalda recta automáticamente — la versión más segura de squat para tu columna."
-      },
-      {
-        id:"dead-bug", name:"Dead Bug",
-        muscles:"Core profundo · Anti-rotación · Lumbar",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/xmVn2VbTEYIAAAAC/dead-bug-exercise-core.gif",
-        cue:"Acostado boca arriba, brazos al techo, rodillas a 90°. Baja LENTAMENTE el brazo derecho y la pierna izquierda simultáneamente. La espalda baja nunca despega del suelo. Regresa y alterna.",
-        tip:"El mejor ejercicio de core para tu diagnóstico — activa el core profundo sin presión discal."
-      },
-      {
-        id:"mountain-climber", name:"Mountain Climber",
-        muscles:"Core · Cardio · Hombros",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/HJlLm5gB4P4AAAAC/mountain-climbers-exercise.gif",
-        cue:"Posición de plancha alta. Lleva una rodilla al pecho alternando rápidamente, como si corrieras en el suelo. Caderas bajas alineadas con el cuerpo. Core apretado.",
-        tip:"Mayor quema calórica de la sesión — mantén el ritmo rápido los 40 segundos completos."
-      },
-      {
-        id:"thruster", name:"Thruster con mancuerna",
-        muscles:"Cuerpo completo · Quema calórica máxima",
-        work:40, rest:20,
-        gif:"https://media1.tenor.com/m/cQLGH7_r5KAAAAAC/dumbbell-thruster-exercise.gif",
-        cue:"Mancuernas a los hombros. Baja en squat profundo. Al subir, usa el impulso de las piernas para empujar las mancuernas sobre la cabeza en un solo movimiento fluido.",
-        tip:"Squat + Press en un solo rep — máxima quema en mínimo tiempo. El más difícil de la semana."
-      },
+      {id:"goblet-squat",name:"Goblet Squat",muscles:"Piernas · Core · Movilidad",work:40,rest:20,
+       cue:"Mancuerna vertical al pecho. Pies algo más abiertos. Baja profundo manteniendo el pecho arriba. Codos empujan rodillas hacia afuera.",
+       tip:"La mancuerna al pecho fuerza la espalda recta — versión más segura de squat para tu columna."},
+      {id:"dead-bug",name:"Dead Bug",muscles:"Core profundo · Lumbar",work:40,rest:20,
+       cue:"Boca arriba, brazos al techo, rodillas a 90°. Baja LENTO brazo derecho y pierna izquierda simultáneamente. La espalda baja nunca despega.",
+       tip:"El mejor ejercicio de core para tu diagnóstico — activa profundo sin presión discal."},
+      {id:"mountain-climber",name:"Mountain Climber",muscles:"Core · Cardio · Hombros",work:40,rest:20,
+       cue:"Plancha alta. Lleva una rodilla al pecho alternando rápido como si corrieras. Caderas bajas. Core apretado.",
+       tip:"Mayor quema calórica de la sesión — mantén el ritmo rápido los 40 segundos."},
+      {id:"thruster",name:"Thruster",muscles:"Cuerpo completo · Quema máxima",work:40,rest:20,
+       cue:"Mancuernas a los hombros. Baja en squat. Al subir usa el impulso para presionar las mancuernas sobre la cabeza en un movimiento fluido.",
+       tip:"Squat + Press en un solo rep — máxima quema en mínimo tiempo."},
     ]
   }
 ];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
-let hist = {};
-try{ hist = JSON.parse(localStorage.getItem("force_v2")||"{}"); }catch{}
-
-let dayId=null, round=1, exIdx=0, phase="work", remaining=0, running=false, iv=null, doneIds=[];
+let hist={};
+try{hist=JSON.parse(localStorage.getItem("force_v3")||"{}");}catch{}
+let dayId=null,round=1,exIdx=0,phase="work",remaining=0,running=false,iv=null,doneIds=[];
 const ROUNDS=3;
 
 // ─── AUDIO ────────────────────────────────────────────────────────────────────
 let ac=null;
 function beep(f=660,d=0.18){
   try{
-    if(!ac) ac=new(window.AudioContext||window.webkitAudioContext)();
+    if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();
     const o=ac.createOscillator(),g=ac.createGain();
-    o.connect(g);g.connect(ac.destination);
-    o.frequency.value=f;
+    o.connect(g);g.connect(ac.destination);o.frequency.value=f;
     g.gain.setValueAtTime(0,ac.currentTime);
     g.gain.linearRampToValueAtTime(0.3,ac.currentTime+0.01);
     g.gain.linearRampToValueAtTime(0,ac.currentTime+d);
@@ -331,239 +674,201 @@ function beep(f=660,d=0.18){
   }catch{}
 }
 
-// ─── SVG RING ─────────────────────────────────────────────────────────────────
-function ring(total,rem,isRest,sz=160){
-  const r=sz/2-10,c=2*Math.PI*r;
-  const pct=total>0?rem/total:0;
-  const col=isRest?"#2D3A6B":"#FF6B35";
-  const tcol=isRest?"#6B7698":"#FFB347";
-  const lbl=isRest?"DESCANSO":"TRABAJA";
+// ─── RING SVG ─────────────────────────────────────────────────────────────────
+function ring(total,rem,isRest,sz=150){
+  const r=sz/2-10,c=2*Math.PI*r,pct=total>0?rem/total:0;
+  const col=isRest?"#2D3A6B":"#FF6B35",tcol=isRest?"#6B7698":"#FFB347";
   const s=rem<10?"0"+rem:""+rem;
   return `<svg width="${sz}" height="${sz}" viewBox="0 0 ${sz} ${sz}">
-    <circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="#252D40" stroke-width="10"/>
-    <circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="${col}" stroke-width="10"
+    <circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="#252D40" stroke-width="9"/>
+    <circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="${col}" stroke-width="9"
       stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${(c*(1-pct)).toFixed(1)}"
       transform="rotate(-90 ${sz/2} ${sz/2})" style="transition:stroke-dashoffset .15s linear"/>
     <text x="50%" y="44%" text-anchor="middle" dominant-baseline="middle"
       font-size="${Math.round(sz*.3)}" font-weight="800" fill="#F1F5FF" font-family="monospace">${s}</text>
     <text x="50%" y="70%" text-anchor="middle" dominant-baseline="middle"
-      font-size="${Math.round(sz*.1)}" font-weight="700" fill="${tcol}" font-family="-apple-system,sans-serif">${lbl}</text>
+      font-size="${Math.round(sz*.1)}" font-weight="700" fill="${tcol}" font-family="-apple-system,sans-serif">
+      ${isRest?"DESCANSO":"TRABAJA"}</text>
   </svg>`;
 }
 
-// ─── HOME RENDER ──────────────────────────────────────────────────────────────
+// ─── HOME ─────────────────────────────────────────────────────────────────────
 function renderHome(){
   const entries=Object.entries(hist).sort((a,b)=>b[0].localeCompare(a[0]));
   const week=entries.filter(([d])=>(Date.now()-new Date(d))/86400000<7);
-  document.getElementById("s-week").textContent=week.length;
-  document.getElementById("s-total").textContent=entries.length;
-  document.getElementById("s-min").textContent=entries.length*20;
-
-  const dl=document.getElementById("day-list");
+  document.getElementById("sw").textContent=week.length;
+  document.getElementById("st").textContent=entries.length;
+  document.getElementById("sm").textContent=entries.length*20;
+  const dl=document.getElementById("dlist");
   dl.innerHTML="";
   DAYS.forEach(day=>{
     const last=entries.find(([,id])=>id===day.id);
     const lastTxt=last?last[0].slice(5).replace("-","/ "):"";
     const div=document.createElement("div");
-    div.className="day-card";
+    div.className="dcard";
     div.innerHTML=`
-      <button class="day-btn" onclick="togglePrev('${day.id}')">
-        <div class="day-icon" style="background:${day.bg};border-color:${day.color};color:${day.color}">${day.id}</div>
-        <div class="day-info">
-          <div class="day-name">${day.name}</div>
-          <div class="day-sub">${day.label}</div>
+      <button class="dbtn" onclick="togglePrev('${day.id}')">
+        <div class="dicon" style="background:${day.bg};border-color:${day.color};color:${day.color}">${day.id}</div>
+        <div style="flex:1">
+          <div class="dname">${day.name}</div>
+          <div class="dsub">${day.label}</div>
         </div>
-        <div class="day-right">
-          ${lastTxt?`<div class="day-last">Último: ${lastTxt}</div>`:""}
-          <div class="day-cnt" style="color:${day.color}">${day.exercises.length} ej · 3 rondas</div>
+        <div class="dright">
+          ${lastTxt?`<div class="dlast">Último: ${lastTxt}</div>`:""}
+          <div class="dcnt" style="color:${day.color}">${day.exercises.length} ej · 3 rondas</div>
         </div>
-        <span class="chevron" id="chv-${day.id}">⌄</span>
+        <span class="chv" id="chv-${day.id}">⌄</span>
       </button>
-      <div class="preview-panel" id="prev-${day.id}">
-        <div>${day.exercises.map((ex,i)=>`
-          <div class="ex-preview-row">
-            <div class="ex-preview-num">${i+1}</div>
+      <div class="ppanel" id="pp-${day.id}">
+        ${day.exercises.map((ex,i)=>`
+          <div class="prow">
+            <div class="pnum">${i+1}</div>
             <div style="flex:1">
-              <span class="ex-preview-name">${ex.name}</span><br>
-              <span class="ex-preview-muscle">${ex.muscles}</span>
+              <span class="pname">${ex.name}</span><br>
+              <span class="pmus">${ex.muscles}</span>
             </div>
-            <span class="ex-preview-time">${ex.work}s</span>
+            <span class="ptime">${ex.work}s</span>
           </div>`).join("")}
-        </div>
-        <button class="start-day-btn" style="background:${day.color}" onclick="startSession('${day.id}')">
+        <button class="sbtn" style="background:${day.color}" onclick="startSession('${day.id}')">
           Comenzar ${day.name} →
         </button>
       </div>`;
     dl.appendChild(div);
   });
-
-  const hs=document.getElementById("hist-section");
-  const hl=document.getElementById("hist-list");
+  const hs=document.getElementById("hsec"),hl=document.getElementById("hlist");
   if(entries.length>0){
     hs.style.display="block";
     hl.innerHTML=entries.slice(0,7).map(([date,id])=>{
       const d=DAYS.find(x=>x.id===id);
-      return `<div class="hist-row">
-        <div class="hist-dot" style="background:${d?.color||"#FF6B35"}"></div>
-        <div class="hist-name">${d?.name} — ${d?.label}</div>
-        <div class="hist-date">${date.slice(5).replace("-","/")}</div>
+      return `<div class="hrow">
+        <div class="hdot" style="background:${d?.color||"#FF6B35"}"></div>
+        <div class="hname">${d?.name} — ${d?.label}</div>
+        <div class="hdate">${date.slice(5).replace("-","/")}</div>
       </div>`;
     }).join("");
-  }else{ hs.style.display="none"; }
+  } else hs.style.display="none";
 }
 
 function togglePrev(id){
   DAYS.forEach(d=>{
-    if(d.id!==id){
-      document.getElementById("prev-"+d.id)?.classList.remove("open");
-      const c=document.getElementById("chv-"+d.id);
-      if(c) c.classList.remove("open");
-    }
+    if(d.id!==id){document.getElementById("pp-"+d.id)?.classList.remove("open");document.getElementById("chv-"+d.id)?.classList.remove("open");}
   });
-  document.getElementById("prev-"+id)?.classList.toggle("open");
+  document.getElementById("pp-"+id)?.classList.toggle("open");
   document.getElementById("chv-"+id)?.classList.toggle("open");
 }
 
 // ─── SESSION ──────────────────────────────────────────────────────────────────
 function startSession(id){
-  dayId=id; round=1; exIdx=0; phase="work"; doneIds=[]; running=false;
-  clearInterval(iv);
-  const day=DAYS.find(d=>d.id===id);
-  remaining=day.exercises[0].work;
-  show("sess-screen");
-  renderSess();
+  dayId=id;round=1;exIdx=0;phase="work";doneIds=[];running=false;clearInterval(iv);
+  remaining=DAYS.find(d=>d.id===id).exercises[0].work;
+  show("sess-screen");renderSess();
 }
 
 function renderSess(){
-  const day=DAYS.find(d=>d.id===dayId);
-  const exs=day.exercises, ex=exs[exIdx];
-  document.getElementById("s-round").textContent=`Ronda ${round} de ${ROUNDS}`;
-  document.getElementById("s-title").textContent=`${day.name} — ${day.label}`;
-
-  // dots
-  document.getElementById("s-dots").innerHTML=exs.map((_,i)=>
-    `<div class="pdot ${i<exIdx?"pdone":i===exIdx?"pactive":""}"></div>`
-  ).join("");
-
-  // main
+  const day=DAYS.find(d=>d.id===dayId),exs=day.exercises,ex=exs[exIdx];
+  document.getElementById("sround").textContent=`Ronda ${round} de ${ROUNDS}`;
+  document.getElementById("stitle").textContent=`${day.name} — ${day.label}`;
+  document.getElementById("sdots").innerHTML=exs.map((_,i)=>
+    `<div class="pd ${i<exIdx?"pdn":i===exIdx?"pac":""}"></div>`).join("");
   if(phase==="roundrest"){
-    document.getElementById("s-exlbl").textContent="Descansa entre rondas";
-    document.getElementById("s-extitle").textContent=`Ronda ${round+1} de ${ROUNDS} en breve`;
-    document.getElementById("s-cue").textContent="Respira, hidratate, prepárate.";
+    document.getElementById("selbl").textContent="Descansa entre rondas";
+    document.getElementById("settl").textContent=`Ronda ${round+1} de ${ROUNDS} en breve`;
+    document.getElementById("scue").textContent="Respira, hidratate, prepárate.";
   } else {
-    document.getElementById("s-exlbl").textContent=`Ejercicio ${exIdx+1} de ${exs.length}`;
-    document.getElementById("s-extitle").textContent=ex.name;
-    document.getElementById("s-cue").textContent=phase==="rest"?"Prepárate para el siguiente →":ex.cue;
+    document.getElementById("selbl").textContent=`Ejercicio ${exIdx+1} de ${exs.length}`;
+    document.getElementById("settl").textContent=ex.name;
+    document.getElementById("scue").textContent=phase==="rest"?"Prepárate para el siguiente →":ex.cue;
   }
-
   const isRest=phase!=="work";
   const total=phase==="work"?ex.work:phase==="rest"?ex.rest:60;
-  document.getElementById("ring-wrap").innerHTML=ring(total,remaining,isRest,160);
-
-  const btn=document.getElementById("s-btn");
-  if(running){ btn.textContent="Pausar"; btn.style.background="var(--border)"; }
-  else { btn.textContent="Iniciar"; btn.style.background="var(--accent)"; }
+  document.getElementById("ringwrap").innerHTML=ring(total,remaining,isRest,150);
+  const btn=document.getElementById("sabtn");
+  btn.textContent=running?"Pausar":"Iniciar";
+  btn.style.background=running?"var(--border)":"var(--accent)";
   btn.style.color="#fff";
-
   renderCards(exs);
 }
 
 function renderCards(exs){
-  document.getElementById("s-cards").innerHTML=exs.map((ex,i)=>{
-    const active=i===exIdx&&phase==="work";
-    const done=doneIds.includes(ex.id);
-    return `<div class="ex-card ${active?"is-active":""} ${done?"is-done":""}" id="ec-${ex.id}">
-      <button class="ex-card-btn" onclick="toggleCard('${ex.id}')">
-        <div class="ex-num ${active?"num-active":""} ${done?"num-done":""}">${done?"✓":i+1}</div>
+  document.getElementById("scards").innerHTML=exs.map((ex,i)=>{
+    const active=i===exIdx&&phase==="work",done=doneIds.includes(ex.id);
+    return `<div class="ecard ${active?"iac":""} ${done?"idn":""}" id="ec-${ex.id}">
+      <button class="ecbtn" onclick="toggleCard('${ex.id}')">
+        <div class="enum ${active?"nac":""} ${done?"ndn":""}">${done?"✓":i+1}</div>
         <div style="flex:1;min-width:0">
-          <div class="ex-ttl">${ex.name}</div>
-          <div class="ex-mus">${ex.muscles}</div>
+          <div class="ettl">${ex.name}</div>
+          <div class="emus">${ex.muscles}</div>
         </div>
-        <div class="ex-timing-lbl">${ex.work}s·${ex.rest}s</div>
-        <div class="ex-chev" id="ech-${ex.id}">⌄</div>
+        <div class="etm">${ex.work}s·${ex.rest}s</div>
+        <div class="echv" id="ech-${ex.id}">⌄</div>
       </button>
-      <div class="ex-body" id="eb-${ex.id}">
-        <img class="ex-gif" src="${ex.gif}" alt="${ex.name}"
-          onerror="this.style.display='none';document.getElementById('gf-${ex.id}').style.display='flex'"/>
-        <div class="gif-fallback" id="gf-${ex.id}">
-          <div class="gif-fallback-icon">🏋️</div>
-          <div class="gif-fallback-txt">Animación no disponible sin conexión</div>
-        </div>
-        <p class="ex-cue-p">${ex.cue}</p>
-        <div class="ex-tip-box">💡 ${ex.tip}</div>
+      <div class="ebody" id="eb-${ex.id}">
+        <div class="esvg">${SVGS[ex.id]||""}</div>
+        <p class="ecue">${ex.cue}</p>
+        <div class="etip">💡 ${ex.tip}</div>
       </div>
     </div>`;
   }).join("");
 }
 
 function toggleCard(id){
-  const body=document.getElementById("eb-"+id);
-  const chev=document.getElementById("ech-"+id);
-  const open=body.classList.toggle("open");
-  chev.style.transform=open?"rotate(180deg)":"none";
+  const b=document.getElementById("eb-"+id),c=document.getElementById("ech-"+id);
+  const o=b.classList.toggle("open");c.style.transform=o?"rotate(180deg)":"none";
 }
 
-function toggleTimer(){
-  if(running) pauseTimer(); else startTimer();
-}
+function toggleTimer(){ if(running)pauseTimer(); else startTimer(); }
 
 function startTimer(){
-  running=true; renderSess();
+  running=true;renderSess();
   const day=DAYS.find(d=>d.id===dayId);
   iv=setInterval(()=>{
     remaining--;
     const ex=day.exercises[exIdx];
     const isRest=phase!=="work";
     const total=phase==="work"?ex.work:phase==="rest"?ex.rest:60;
-    document.getElementById("ring-wrap").innerHTML=ring(total,remaining,isRest,160);
-    if(remaining<=0){ clearInterval(iv); advance(); }
+    document.getElementById("ringwrap").innerHTML=ring(total,remaining,isRest,150);
+    if(remaining<=0){clearInterval(iv);advance();}
   },1000);
 }
 
 function pauseTimer(){
-  running=false; clearInterval(iv);
-  const btn=document.getElementById("s-btn");
-  btn.textContent="Iniciar"; btn.style.background="var(--accent)";
+  running=false;clearInterval(iv);
+  const b=document.getElementById("sabtn");b.textContent="Iniciar";b.style.background="var(--accent)";
 }
 
 function advance(){
-  const day=DAYS.find(d=>d.id===dayId), exs=day.exercises;
+  const day=DAYS.find(d=>d.id===dayId),exs=day.exercises;
   if(phase==="work"){
     beep(440,.12);
-    if(exIdx<exs.length-1){ phase="rest"; remaining=exs[exIdx].rest; }
-    else if(round<ROUNDS){ phase="roundrest"; remaining=60; }
-    else { showDone(); return; }
+    if(exIdx<exs.length-1){phase="rest";remaining=exs[exIdx].rest;}
+    else if(round<ROUNDS){phase="roundrest";remaining=60;}
+    else{showDone();return;}
   } else if(phase==="rest"){
-    beep(660,.1);
-    doneIds.push(exs[exIdx].id);
-    exIdx++; phase="work"; remaining=exs[exIdx].work;
+    beep(660,.1);doneIds.push(exs[exIdx].id);
+    exIdx++;phase="work";remaining=exs[exIdx].work;
   } else {
-    beep(880,.2);
-    round++; exIdx=0; phase="work"; remaining=exs[0].work; doneIds=[];
+    beep(880,.2);round++;exIdx=0;phase="work";remaining=exs[0].work;doneIds=[];
   }
-  running=true; renderSess(); startTimer();
+  running=true;renderSess();startTimer();
 }
 
 function showDone(){
   running=false;
   const day=DAYS.find(d=>d.id===dayId);
-  document.getElementById("d-sub").textContent=`${day.name} · ${ROUNDS} rondas`;
-  document.getElementById("d-series").textContent=day.exercises.length*ROUNDS;
-  document.getElementById("d-kcal").textContent=`~${day.kcal}`;
+  document.getElementById("dsub").textContent=`${day.name} · ${ROUNDS} rondas`;
+  document.getElementById("dser").textContent=day.exercises.length*ROUNDS;
+  document.getElementById("dkcal").textContent=`~${day.kcal}`;
   show("done-screen");
 }
 
 function finishSession(){
   const today=new Date().toISOString().split("T")[0];
   hist[today]=dayId;
-  try{ localStorage.setItem("force_v2",JSON.stringify(hist)); }catch{}
+  try{localStorage.setItem("force_v3",JSON.stringify(hist));}catch{}
   goHome();
 }
 
-function goHome(){
-  running=false; clearInterval(iv);
-  show("home-screen"); renderHome();
-}
+function goHome(){running=false;clearInterval(iv);show("home-screen");renderHome();}
 
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
