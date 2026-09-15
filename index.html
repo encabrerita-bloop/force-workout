@@ -376,7 +376,14 @@ function showDone(){
   document.getElementById("phase-up-wrap").innerHTML=phaseUp?'<div class="phase-banner"><div class="pbn-t">&#127881; &#161;Fase '+pn+' completada!</div><div class="pbn-s">La pr\u00f3xima semana comienza '+(pn<3?"la Fase "+(pn+1):"la \u00faltima fase")+'. El nivel sube autom\u00e1ticamente.</div></div>':"";
   show("done-screen");
 }
-function finishSession(){var today=new Date().toISOString().split("T")[0];ST.hist[today]=dayId;save();show("app-screen");document.getElementById("bnav").style.display="flex";renderHome();}
+function finishSession(){
+  var today=new Date().toISOString().split("T")[0];ST.hist[today]=dayId;save();
+  show("app-screen");document.getElementById("bnav").style.display="flex";renderHome();
+  // Sync a GitHub al terminar cualquier sesión (especialmente Día D)
+  if(dayId==="D"){syncToGitHub();}
+  // También sync ligero en otros días para no perder datos
+  else{syncToGitHub();}
+}
 function goHome(){running=false;clearInterval(iv);show("app-screen");document.getElementById("bnav").style.display="flex";}
 function saveMeasure(){
   var w=parseFloat(document.getElementById("iw").value),wa=parseFloat(document.getElementById("iwa").value),h=parseFloat(document.getElementById("ih").value);
@@ -397,7 +404,46 @@ function renderProgress(){
 }
 function switchTab(tab){["home","progress","settings"].forEach(function(t){document.getElementById("tab-"+t).style.display=t===tab?"block":"none";var n=document.getElementById("nav-"+t);if(n)n.classList.toggle("active",t===tab);});if(tab==="progress")renderProgress();if(tab==="home")renderHome();}
 function show(id){document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active");});document.getElementById(id).classList.add("active");if(id!=="app-screen")document.getElementById("bnav").style.display="none";}
-if(ST.startDate){show("app-screen");document.getElementById("bnav").style.display="flex";renderHome();}
+// ── SYNC CON NETLIFY FUNCTION ─────────────────────────────────────────────────
+async function syncToGitHub(){
+  try{
+    var res=await fetch("/.netlify/functions/sync",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(ST)
+    });
+    if(res.ok){showSyncBadge("&#9989; Progreso guardado en la nube");}
+    else{showSyncBadge("&#9888;&#65039; No se pudo sincronizar");}
+  }catch(e){showSyncBadge("&#9888;&#65039; Sin conexi\u00f3n");}
+}
+
+function showSyncBadge(msg){
+  var b=document.createElement("div");
+  b.innerHTML=msg;
+  b.style.cssText="position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1C2333;border:1px solid #252D40;color:#F1F5FF;font-size:13px;font-weight:600;padding:10px 18px;border-radius:20px;z-index:999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.4);";
+  document.body.appendChild(b);
+  setTimeout(function(){b.remove();},3000);
+}
+
+async function loadFromGitHub(){
+  // Al cargar, intenta restaurar desde GitHub si hay más sesiones en la nube
+  try{
+    var res=await fetch("/.netlify/functions/load");
+    if(res.ok){
+      var data=await res.json();
+      var localSessions=Object.keys(ST.hist||{}).length;
+      var cloudSessions=Object.keys(data.hist||{}).length;
+      if(cloudSessions>localSessions){
+        ST=data;save();
+        showSyncBadge("&#9729;&#65039; Progreso restaurado ("+cloudSessions+" sesiones)");
+        renderHome();
+      }
+    }
+  }catch(e){}
+}
+
+if(ST.startDate){show("app-screen");document.getElementById("bnav").style.display="flex";renderHome();loadFromGitHub();}
+
 </script>
 </body>
 </html>
