@@ -349,6 +349,12 @@ function renderSess(){
 function toggleCard(id){var b=document.getElementById("eb-"+id),c=document.getElementById("ech-"+id);var o=b.classList.toggle("open");c.style.transform=o?"rotate(180deg)":"none";}
 function toggleTimer(){if(running)pauseTimer();else startTimer();}
 function startTimer(){
+  // Activar Wake Lock para mantener pantalla encendida
+  if('wakeLock' in navigator && !window._wakeLock){
+    navigator.wakeLock.request('screen').then(function(lock){
+      window._wakeLock = lock;
+    }).catch(function(){});
+  }
   running=true;renderSess();var p=ph();
   iv=setInterval(function(){
     rem--;var isRest=phase!=="work",total=phase==="work"?p.w:phase==="rest"?p.r:60;
@@ -368,6 +374,8 @@ function advance(){
   running=true;renderSess();startTimer();
 }
 function showDone(){
+  // Liberar Wake Lock al terminar
+  if(window._wakeLock){window._wakeLock.release();window._wakeLock=null;}
   running=false;var dm=DM.find(function(d){return d.id===dayId;}),pn=phN(),wn=wkN();
   document.getElementById("dsub").textContent=dm.name+" \u00b7 Sem "+wn+" \u00b7 "+ph().name;
   document.getElementById("dser").textContent=EX[dayId].length*ROUNDS;
@@ -384,7 +392,7 @@ function finishSession(){
   // También sync ligero en otros días para no perder datos
   else{syncToGitHub();}
 }
-function goHome(){running=false;clearInterval(iv);show("app-screen");document.getElementById("bnav").style.display="flex";}
+function goHome(){running=false;clearInterval(iv);if(window._wakeLock){window._wakeLock.release();window._wakeLock=null;}show("app-screen");document.getElementById("bnav").style.display="flex";}
 function saveMeasure(){
   var w=parseFloat(document.getElementById("iw").value),wa=parseFloat(document.getElementById("iwa").value),h=parseFloat(document.getElementById("ih").value);
   if(!w&&!wa&&!h)return;
