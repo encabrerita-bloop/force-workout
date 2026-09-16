@@ -128,10 +128,10 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
         <div class="ph-pill" style="background:rgba(168,85,247,.1);border-color:#A855F7;"><div class="ph-num">Fase 3</div><div class="ph-name" style="color:#A855F7;">Rendimiento</div><div class="ph-wks">Sem 9–12</div></div>
       </div>
       <div class="dp-list">
-        <div class="dp-row"><div class="dp-tag" style="background:rgba(61,123,245,.15);color:#3D7BF5;">A</div><div><div class="dp-name">Fuerza — Tren inferior</div><div class="dp-focus">Piernas · Glúteos · Core</div></div></div>
-        <div class="dp-row"><div class="dp-tag" style="background:rgba(255,107,53,.15);color:#FF6B35;">B</div><div><div class="dp-name">Quema grasa — HIIT metabólico</div><div class="dp-focus">Full body · Cardio · Grasa visceral</div></div></div>
-        <div class="dp-row"><div class="dp-tag" style="background:rgba(34,197,94,.15);color:#22C55E;">C</div><div><div class="dp-name">Fuerza — Tren superior</div><div class="dp-focus">Espalda · Hombros · Postura</div></div></div>
-        <div class="dp-row"><div class="dp-tag" style="background:rgba(168,85,247,.15);color:#A855F7;">D</div><div><div class="dp-name">Movilidad activa + Glúteos</div><div class="dp-focus">Columna · Core profundo · Recuperación</div></div></div>
+        <div class="dp-row"><div class="dp-tag" style="background:rgba(61,123,245,.15);color:#3D7BF5;">2</div><div><div class="dp-name">Fuerza — Tren inferior</div><div class="dp-focus">Piernas · Glúteos · Core</div></div></div>
+        <div class="dp-row"><div class="dp-tag" style="background:rgba(255,107,53,.15);color:#FF6B35;">1·3</div><div><div class="dp-name">Quema grasa — HIIT metabólico (×2)</div><div class="dp-focus">Full body · Cardio · Grasa visceral</div></div></div>
+        <div class="dp-row"><div class="dp-tag" style="background:rgba(34,197,94,.15);color:#22C55E;">4</div><div><div class="dp-name">Fuerza — Tren superior + Core</div><div class="dp-focus">Espalda · Hombros · Postura · Columna</div></div></div>
+        
       </div>
       <button class="ob-cta" onclick="startProgram()">Comenzar mis 12 semanas →</button>
     </div>
@@ -224,10 +224,10 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
 
 <script>
 const DM=[
-  {id:"A",name:"D\u00eda A",label:"Fuerza \u00b7 Tren inferior",color:"#3D7BF5",bg:"rgba(61,123,245,.12)",kcal:{1:150,2:185,3:220}},
-  {id:"B",name:"D\u00eda B",label:"Quema grasa \u00b7 HIIT",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:{1:190,2:230,3:270}},
-  {id:"C",name:"D\u00eda C",label:"Fuerza \u00b7 Tren superior",color:"#22C55E",bg:"rgba(34,197,94,.12)",kcal:{1:140,2:170,3:200}},
-  {id:"D",name:"D\u00eda D",label:"Movilidad activa + Gl\u00fateos",color:"#A855F7",bg:"rgba(168,85,247,.12)",kcal:{1:110,2:135,3:158}},
+  {id:"B",name:"D\u00eda 1",label:"Quema grasa \u00b7 HIIT",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:{1:190,2:230,3:270}},
+  {id:"A",name:"D\u00eda 2",label:"Fuerza \u00b7 Tren inferior",color:"#3D7BF5",bg:"rgba(61,123,245,.12)",kcal:{1:150,2:185,3:220}},
+  {id:"B2",name:"D\u00eda 3",label:"Quema grasa \u00b7 HIIT",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:{1:190,2:230,3:270}},
+  {id:"C",name:"D\u00eda 4",label:"Fuerza \u00b7 Tren superior + Core",color:"#22C55E",bg:"rgba(34,197,94,.12)",kcal:{1:140,2:170,3:200}},
 ];
 const PH=[
   {n:1,name:"Fase 1 \u00b7 Base",sh:"Base",wk:"1\u20134",c:"#22C55E",w:35,r:25,note:"Aprende los movimientos. Forma perfecta antes que intensidad."},
@@ -319,7 +319,7 @@ function renderHome(){
   DM.forEach(function(day){
     var last=entries.find(function(e){return e[1]===day.id;});
     var lastTxt=last?last[0].slice(5).replace("-","/ "):"";
-    var exList=EX[day.id];
+    var exList=EX[day.id==="B2"?"B":day.id];
     var div=document.createElement("div");div.className="dcard";
     div.innerHTML='<button class="dbtn" onclick="togglePrev(\''+day.id+'\')"><div class="dico" style="background:'+day.bg+';border-color:'+day.color+';color:'+day.color+'">'+day.id+'</div><div style="flex:1"><div class="dname">'+day.name+'</div><div class="dsub">'+day.label+'</div></div><div class="dright">'+(lastTxt?'<div class="dlast">&#218;ltimo: '+lastTxt+'</div>':'')+'<div class="dcnt" style="color:'+day.color+'">'+exList.length+' ej \u00b7 '+p.w+'s trabajo</div></div><span class="chv" id="chv-'+day.id+'">&#8964;</span></button><div class="ppanel" id="pp-'+day.id+'"><div style="display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:'+phc+'22;color:'+phc+';margin-bottom:10px;">'+p.name+' \u00b7 '+p.w+'s / '+p.r+'s</div>'+exList.map(function(ex,i){return '<div class="prow"><div class="pnum">'+(i+1)+'</div><div style="flex:1"><span class="pname">'+ex.nm+'</span><br><span class="pmus">'+ex.ms+'</span></div><span class="ptime">'+p.w+'s</span></div>';}).join("")+'<button class="sbtn" style="background:'+day.color+'" onclick="startSession(\''+day.id+'\')">Comenzar '+day.name+' &#8594;</button></div>';
     dl.appendChild(div);
