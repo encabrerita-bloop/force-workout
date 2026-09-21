@@ -129,7 +129,8 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
       </div>
       <div class="dp-list">
         <div class="dp-row"><div class="dp-tag" style="background:rgba(61,123,245,.15);color:#3D7BF5;">2</div><div><div class="dp-name">Fuerza — Tren inferior</div><div class="dp-focus">Piernas · Glúteos · Core</div></div></div>
-        <div class="dp-row"><div class="dp-tag" style="background:rgba(255,107,53,.15);color:#FF6B35;">1·3</div><div><div class="dp-name">Quema grasa — HIIT metabólico (×2)</div><div class="dp-focus">Full body · Cardio · Grasa visceral</div></div></div>
+        <div class="dp-row"><div class="dp-tag" style="background:rgba(255,107,53,.15);color:#FF6B35;">1</div><div><div class="dp-name">Quema grasa — HIIT metabólico</div><div class="dp-focus">Full body · Cardio · Grasa visceral</div></div></div>
+        <div class="dp-row"><div class="dp-tag" style="background:rgba(168,85,247,.15);color:#A855F7;">3</div><div><div class="dp-name">Core + APT + Respiración</div><div class="dp-focus">Abdomen · Postura · Corrección pélvica</div></div></div>
         <div class="dp-row"><div class="dp-tag" style="background:rgba(34,197,94,.15);color:#22C55E;">4</div><div><div class="dp-name">Fuerza — Tren superior + Core</div><div class="dp-focus">Espalda · Hombros · Postura · Columna</div></div></div>
         
       </div>
@@ -226,7 +227,7 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
 const DM=[
   {id:"B",name:"D\u00eda 1",label:"Quema grasa \u00b7 HIIT",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:{1:190,2:230,3:270}},
   {id:"C",name:"D\u00eda 2",label:"Fuerza \u00b7 Tren superior + Core",color:"#22C55E",bg:"rgba(34,197,94,.12)",kcal:{1:140,2:170,3:200}},
-  {id:"B2",name:"D\u00eda 3",label:"Quema grasa \u00b7 HIIT",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:{1:190,2:230,3:270}},
+  {id:"E",name:"D\u00eda 3",label:"Core + APT + Respiraci\u00f3n",color:"#A855F7",bg:"rgba(168,85,247,.12)",kcal:{1:100,2:120,3:140}},
   {id:"A",name:"D\u00eda 4",label:"Fuerza \u00b7 Tren inferior",color:"#3D7BF5",bg:"rgba(61,123,245,.12)",kcal:{1:150,2:185,3:220}},
 ];
 const PH=[
@@ -292,6 +293,20 @@ const EX={
      tip:["Los dos ejercicios m\u00e1s importantes para recuperar tu lordosis cervical perdida.","Las 3 posiciones del doorway abren C1, C6 y C7 \u2014 tus subluxaciones principales.","El chin tuck con resistencia reconstruye activamente la curva cervical."]},
   ],
 };
+  E:[
+    {nm:"Respiraci\u00f3n 360\u00b0 (90/90)",ms:"Diafragma \u00b7 Caja tor\u00e1cica \u00b7 Pelvis",yt:"lu4nOA-MdwQ",ytT:"Fix Anterior Pelvic Tilt — 2 Moves",
+     cue:["Boca arriba, rodillas a 90\u00b0, pies en la pared. Inhala expandiendo las costillas hacia los LADOS (no el abdomen). Exhala y siente las costillas bajar y juntarse. 10 respiraciones lentas.","Misma posici\u00f3n. Exhala completamente al final de cada ciclo aplastando la espalda al suelo. 12 respiraciones.","En cuatro puntos. Inhala expandiendo costillas hacia atr\u00e1s y los lados. Exhala vaciando todo el aire. 15 ciclos."],
+     tip:["Este es el ejercicio m\u00e1s importante para tu barriga postural — no es grasa, es posici\u00f3n de \u00f3rganos.","La exhalaci\u00e1n completa es lo que repositiona la caja tor\u00e1cica — no la inhalaci\u00f3n.","En Fase 3 la respiraci\u00f3n en cuatro puntos activa m\u00e1s los oblicuos internos."]},
+    {nm:"Dead Bug con exhalaci\u00f3n",ms:"Core profundo \u00b7 Anti-rotaci\u00f3n \u00b7 APT",yt:"-gRN_JyVTLY",ytT:"How To Do The Dead Bug Correctly",
+     cue:["Boca arriba. ANTES de mover: exhala y aplasta la espalda al suelo. Mant\u00e9n esa presi\u00f3n. Baja brazo y pierna opuestos lento en 5 seg. Si la espalda se despega, para.","Exhala completamente al bajar cada extremidad. La exhalaci\u00f3n es lo que estabiliza la pelvis. 6 seg por lado.","Con mancuerna peque\u00f1a en la mano. Exhala al bajar. 7 seg por lado. M\u00e1ximo control."],
+     tip:["La coordinaci\u00f3n llega en 3-4 sesiones — empieza moviendo solo el brazo, luego solo la pierna, luego ambos.","La exhalaci\u00f3n activa el transverso abdominal autom\u00e1ticamente — es el \u00fanico m\u00fascul que corrige el APT desde adentro.","El Dead Bug pesado con exhalaci\u00f3n es el ejercicio de core m\u00e1s avanzado del programa."]},
+    {nm:"Hollow Body Hold",ms:"Recto abdominal \u00b7 Oblicuos \u00b7 Definici\u00f3n",yt:"lqIimkDs5Zk",ytT:"Hollow Body Hold Tutorial",
+     cue:["Boca arriba. Aplasta la espalda al suelo. Sube los hombros y extiende los brazos al frente. Levanta las piernas a 45\u00b0. Mant\u00e9n 20 seg. Si la espalda se despega, sube las piernas m\u00e1s.","Brazos extendidos sobre la cabeza. Piernas a 30\u00b0. Mant\u00e9n 30 seg. Exhala lento durante el hold.","Piernas a 15\u00b0 del suelo. Brazos sobre la cabeza. Mant\u00e9n 40 seg. Respiraci\u00f3n controlada."],
+     tip:["Este es el ejercicio que m\u00e1s trabaja el recto abdominal con la pelvis en posici\u00f3n correcta — sin APT.","A diferencia del crunch, el Hollow Body trabaja el abdomen en posici\u00f3n alargada — m\u00e1s efectivo para definici\u00f3n.","Cuanto m\u00e1s bajas las piernas, m\u00e1s dif\u00edcil. En Fase 3 las piernas casi tocan el suelo."]},
+    {nm:"Pelvic Tilt + Posterior Tilt",ms:"Pelvis \u00b7 L4-L5 \u00b7 Core",yt:"mQkjXsn53Ck",ytT:"3 Exercises to Fix Anterior Pelvic Tilt",
+     cue:["Boca arriba, rodillas dobladas. Inclina la pelvis hacia adelante (espalda se arquea) y luego hacia atr\u00e1s (espalda se aplasta). Lento. 10 reps cada direcci\u00f3n.","Agrega respiraci\u00f3n: inhala en anterior tilt, exhala en posterior tilt. 12 ciclos.","De pie contra la pared. Inclina pelvis anterior y posterior manteniendo contacto con la pared. 15 reps coordinado con respiraci\u00f3n."],
+     tip:["Este es el ejercicio que m\u00e1s directamente corrige tu diagn\u00f3stico — lo tienes en tu plan de HealthSource por algo.","La combinaci\u00f3n con respiraci\u00f3n hace que el diafragma y el suelo p\u00e9lvico trabajen en sincron\u00eda.","De pie en Fase 3 es mucho m\u00e1s dif\u00edcil — requiere propiocepci\u00f3n real de la pelvis."]},
+  ],
 const PHC={1:"#22C55E",2:"#FF6B35",3:"#A855F7"};
 const ROUNDS=3;
 let ST={startDate:null,hist:{},measures:[]};
@@ -319,7 +334,7 @@ function renderHome(){
   DM.forEach(function(day){
     var last=entries.find(function(e){return e[1]===day.id;});
     var lastTxt=last?last[0].slice(5).replace("-","/ "):"";
-    var exList=EX[day.id==="B2"?"B":day.id];
+    var exList=EX[day.id==="B2"?"B":day.id==="E"?day.id:day.id];
     var div=document.createElement("div");div.className="dcard";
     div.innerHTML='<button class="dbtn" onclick="togglePrev(\''+day.id+'\')"><div class="dico" style="background:'+day.bg+';border-color:'+day.color+';color:'+day.color+'">'+day.id+'</div><div style="flex:1"><div class="dname">'+day.name+'</div><div class="dsub">'+day.label+'</div></div><div class="dright">'+(lastTxt?'<div class="dlast">&#218;ltimo: '+lastTxt+'</div>':'')+'<div class="dcnt" style="color:'+day.color+'">'+exList.length+' ej \u00b7 '+p.w+'s trabajo</div></div><span class="chv" id="chv-'+day.id+'">&#8964;</span></button><div class="ppanel" id="pp-'+day.id+'"><div style="display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:'+phc+'22;color:'+phc+';margin-bottom:10px;">'+p.name+' \u00b7 '+p.w+'s / '+p.r+'s</div>'+exList.map(function(ex,i){return '<div class="prow"><div class="pnum">'+(i+1)+'</div><div style="flex:1"><span class="pname">'+ex.nm+'</span><br><span class="pmus">'+ex.ms+'</span></div><span class="ptime">'+p.w+'s</span></div>';}).join("")+'<button class="sbtn" style="background:'+day.color+'" onclick="startSession(\''+day.id+'\')">Comenzar '+day.name+' &#8594;</button></div>';
     dl.appendChild(div);
