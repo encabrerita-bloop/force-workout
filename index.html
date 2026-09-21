@@ -184,6 +184,14 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
       </div>
     </div>
   </div>
+
+  <div id="tab-relief" style="display:none;">
+    <div class="pswrap">
+      <div class="pshdr" style="font-size:20px;">&#129327; Alivio rápido</div>
+      <div style="font-size:13px;color:var(--mu);margin-bottom:16px;line-height:1.6;">¿Llevas más de 1 hora sentado? Estos 5 ejercicios descomprimen tu columna, reactivan los glúteos y alivian la cadera y espalda baja en 5 minutos. Sin mat, en cualquier lugar.</div>
+      <div id="relief-list"></div>
+    </div>
+  </div>
 </div>
 
 <div id="sess-screen" class="screen">
@@ -219,6 +227,7 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
 
 <div class="bnav" id="bnav" style="display:none;">
   <button class="bnbtn active" id="nav-home" onclick="switchTab('home')"><div class="bnico">&#127968;</div>Inicio</button>
+  <button class="bnbtn" id="nav-relief" onclick="switchTab('relief')"><div class="bnico">&#129327;</div>Alivio</button>
   <button class="bnbtn" id="nav-progress" onclick="switchTab('progress')"><div class="bnico">&#128202;</div>Progreso</button>
   <button class="bnbtn" id="nav-settings" onclick="switchTab('settings')"><div class="bnico">&#9881;&#65039;</div>Ajustes</button>
 </div>
@@ -423,7 +432,31 @@ function renderProgress(){
   var max=Math.max.apply(null,weeks.map(function(w){return w.cnt;}).concat([4]));
   document.getElementById("wchart").innerHTML='<div style="display:flex;gap:6px;align-items:flex-end;height:80px;">'+weeks.map(function(w){return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="font-size:11px;color:'+(w.cnt>0?"var(--acc)":"var(--mu)")+';font-weight:700;">'+w.cnt+'</div><div style="width:100%;background:'+(w.label==="Esta"?"var(--acc)":"var(--b)")+';border-radius:4px 4px 0 0;height:'+Math.max(4,(w.cnt/max)*56)+'px;"></div><div style="font-size:9px;color:var(--mu);">'+w.label+'</div></div>';}).join("")+'</div><div style="margin-top:10px;font-size:12px;color:var(--mu);">Meta: 4 sesiones/semana</div>';
 }
-function switchTab(tab){["home","progress","settings"].forEach(function(t){document.getElementById("tab-"+t).style.display=t===tab?"block":"none";var n=document.getElementById("nav-"+t);if(n)n.classList.toggle("active",t===tab);});if(tab==="progress")renderProgress();if(tab==="home")renderHome();}
+var RELIEF=[
+  {name:"Hip Flexor Stretch",icon:"&#129427;",dur:"45 seg / lado",desc:"Medio arrodillado. Rodilla trasera en el suelo. Empuja la cadera hacia adelante hasta sentir el estiramiento en la parte frontal de la cadera. Mantén sin rebotar.",tip:"El hip flexor tenso es la causa #1 del dolor de cadera después de sentarse. Este estiramiento lo libera en segundos."},
+  {name:"Glute Bridge",icon:"&#128170;",dur:"30 seg",desc:"Boca arriba, rodillas dobladas. Eleva las caderas apretando los glúteos al máximo. Mantén 2 seg arriba. 10 reps. Reactiva los glúteos que se ‘apagan’ al sentarse.",tip:"Los glúteos apagados son la causa directa del dolor de espalda baja al sentarse mucho."},
+  {name:"Cat-Cow",icon:"&#128008;",dur:"60 seg",desc:"En cuatro puntos. Arquea la espalda (cat) y luego húnquela (cow). Muy lento. 5 seg cada posición. 6 ciclos. Inhala en cow, exhala en cat.",tip:"Lubrica L4-L5 y las facetas torácicas que están bajo compresión después de horas sentado."},
+  {name:"Doorway Stretch",icon:"&#128682;",dur:"30 seg",desc:"Brazos en el marco de la puerta a 90°. Camina hacia adelante hasta sentir el pecho abrirse. Mantén 30 seg respirando profundo. Si no hay puerta, abre los brazos en T.",tip:"Abre el pecho comprimido por la postura de escritorio — directamente relacionado con tu C6 y postura cervical."},
+  {name:"Chin Tuck",icon:"&#129504;",dur:"30 seg",desc:"Sentado o de pie. Mete el mentón hacia adentro (como hacer doble papada). Mantén 5 seg. Suelta. 10 reps. Siente la parte trasera del cuello alargarse.",tip:"Descomprime C1-C2 y C6 que están subluxados en tu diagnóstico. Házlo cada vez que sientas tensión en el cuello."},
+];
+
+function renderRelief(){
+  var el=document.getElementById("relief-list");
+  if(!el)return;
+  el.innerHTML=RELIEF.map(function(ex,i){
+    return '<div style="background:var(--card);border:1px solid var(--b);border-radius:12px;padding:14px;margin-bottom:12px;">'+
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">'+
+        '<div style="font-size:24px;">'+ex.icon+'</div>'+
+        '<div style="flex:1"><div style="font-size:15px;font-weight:700;">'+ex.name+'</div>'+
+        '<div style="font-size:11px;color:var(--acc);font-weight:600;margin-top:2px;">&#8987; '+ex.dur+'</div></div></div>'+
+      '<div style="font-size:13px;color:#C8D0E8;line-height:1.6;margin-bottom:8px;">'+ex.desc+'</div>'+
+      '<div style="background:var(--s);border-left:3px solid var(--acc);border-radius:0 7px 7px 0;padding:8px 10px;font-size:11.5px;color:var(--acc2);line-height:1.5;">&#128161; '+ex.tip+'</div>'+
+    '</div>';
+  }).join("")+
+  '<div style="font-size:11px;color:var(--mu);line-height:1.6;margin-top:4px;margin-bottom:80px;">Total: ~5 minutos · Sin mat · En cualquier lugar<br>Si el dolor es agudo o se irradia hacia la pierna, contacta al Dr. Bruno.</div>';
+}
+
+function switchTab(tab){["home","progress","settings","relief"].forEach(function(t){document.getElementById("tab-"+t).style.display=t===tab?"block":"none";var n=document.getElementById("nav-"+t);if(n)n.classList.toggle("active",t===tab);});if(tab==="progress")renderProgress();if(tab==="home")renderHome();if(tab==="relief")renderRelief();}
 function show(id){document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active");});document.getElementById(id).classList.add("active");if(id!=="app-screen")document.getElementById("bnav").style.display="none";}
 // ── REPS TRACKER ─────────────────────────────────────────────────────────────
 // Guarda las reps completadas por ejercicio en cada sesión
