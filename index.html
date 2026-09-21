@@ -134,7 +134,7 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
         <div class="dp-row"><div class="dp-tag" style="background:rgba(34,197,94,.15);color:#22C55E;">4</div><div><div class="dp-name">Fuerza — Tren superior + Core</div><div class="dp-focus">Espalda · Hombros · Postura · Columna</div></div></div>
         
       </div>
-      <button class="ob-cta" id="ob-cta-btn2" onclick="startProgram()">Comenzar mis 12 semanas →</button>
+      <button class="ob-cta" onclick="startProgram()">Continuar programa →</button>
     </div>
     <div style="font-size:11px;color:var(--mu);line-height:1.6;text-align:center;">Diseñado para complementar tu plan de HealthSource of Doral.</div>
   </div>
@@ -498,12 +498,6 @@ async function loadFromGitHub(){
 }
 
 // Actualizar texto del botón si ya hay programa activo
-(function(){
-  ["ob-cta-btn","ob-cta-btn2"].forEach(function(id){
-    var btn=document.getElementById(id);
-    if(btn&&ST.startDate){btn.textContent="Continuar programa →";}
-  });
-})();
 if(ST.startDate){show("app-screen");document.getElementById("bnav").style.display="flex";renderHome();loadFromGitHub();}
 
 </script>
