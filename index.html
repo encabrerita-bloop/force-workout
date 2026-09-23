@@ -235,9 +235,9 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
 <script>
 const DM=[
   {id:"B",name:"D\u00eda 1",label:"Quema grasa \u00b7 HIIT",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:{1:190,2:230,3:270}},
-  {id:"C",name:"D\u00eda 2",label:"Fuerza \u00b7 Tren superior + Core",color:"#22C55E",bg:"rgba(34,197,94,.12)",kcal:{1:140,2:170,3:200}},
-  {id:"E",name:"D\u00eda 3",label:"Core + APT + Respiraci\u00f3n",color:"#A855F7",bg:"rgba(168,85,247,.12)",kcal:{1:100,2:120,3:140}},
-  {id:"A",name:"D\u00eda 4",label:"Fuerza \u00b7 Tren inferior",color:"#3D7BF5",bg:"rgba(61,123,245,.12)",kcal:{1:150,2:185,3:220}},
+  {id:"A",name:"D\u00eda 2",label:"Fuerza \u00b7 Tren inferior",color:"#3D7BF5",bg:"rgba(61,123,245,.12)",kcal:{1:150,2:185,3:220}},
+  {id:"B2",name:"D\u00eda 3",label:"Quema grasa \u00b7 HIIT",color:"#FF6B35",bg:"rgba(255,107,53,.12)",kcal:{1:190,2:230,3:270}},
+  {id:"C",name:"D\u00eda 4",label:"Fuerza \u00b7 Tren superior",color:"#22C55E",bg:"rgba(34,197,94,.12)",kcal:{1:140,2:170,3:200}},
 ];
 const PH=[
   {n:1,name:"Fase 1 \u00b7 Base",sh:"Base",wk:"1\u20134",c:"#22C55E",w:35,r:25,note:"Aprende los movimientos. Forma perfecta antes que intensidad."},
@@ -255,9 +255,7 @@ const EX={
     {nm:"Reverse Lunge",ms:"Piernas \u00b7 Gl\u00fateos \u00b7 Equilibrio",yt:"KOFQCrTLiOA",ytT:"Reverse Lunge — Forma para Glúteos",
      cue:["Sin peso. Paso atr\u00e1s largo. Rodilla casi al suelo. Empuja con el tal\u00f3n.","Mancuernas en manos. Paso atr\u00e1s profundo. Alterna lados.","Mancuernas pesadas. Tempo lento en la bajada. Explosivo al subir."],
      tip:["El lunge hacia atr\u00e1s protege la rodilla m\u00e1s que el frontal.","Mant\u00e9n el torso vertical \u2014 no te inclines hacia adelante.","Unilateral corrige el desequilibrio de tu SI/Pelvis izquierdo."]},
-    {nm:"Glute Bridge",ms:"Gl\u00fateos \u00b7 Isquiotibiales \u00b7 Pelvis",yt:"3vUbYrbym9w",ytT:"Banded Hip Thrust — Técnica Correcta",
-     cue:["Boca arriba. Eleva caderas apretando gl\u00fateos. Mant\u00e9n 2 seg. Baja lento.","Banda o mancuerna sobre caderas. Sube en 1 seg. Pausa 2 seg arriba.","Una pierna. 3 pulsos arriba antes de bajar. M\u00e1ximo control."],
-     tip:["Fundamental para estabilizar tu pelvis \u2014 L4-L5 y SI.","La pausa arriba aumenta la activaci\u00f3n gl\u00fateas hasta un 40%.","Unilateral en Fase 3 corrige el desequilibrio izquierdo-derecho."]},
+    {nm:"Marching Hip Bridge",ms:"Gl\u00fateos \u00b7 Pelvis \u00b7 L4-L5",yt:"iZSKZ37MUu0",ytT:"Bridge + March — Physical Therapy",cue:["Boca arriba, rodillas dobladas, brazos a los lados. Sube caderas apretando gl\u00fateos hasta l\u00ednea recta rodilla-cadera-hombro. Levanta una rodilla al pecho sin bajar la cadera. Alterna. 8 por lado.","Mant\u00e9n el puente m\u00e1s alto. Marcha m\u00e1s lenta, 3 seg por pierna. Sin que la cadera rote ni caiga. 10 por lado.","Puente con banda sobre las rodillas. Marcha con pausa de 2 seg arriba de cada pierna. 12 por lado."],tip:["Este es tu ejercicio de HealthSource \u2014 protege L4-L5 mientras fortalece gl\u00fateos.","Si la cadera cae o rota al levantar la pierna, el gl\u00fateo de apoyo a\u00fan no est\u00e1 listo \u2014 marcha m\u00e1s lento.","Es la base de todo el programa de HealthSource para tu pelvis."]}
   ],
   B:[
     {nm:"Thruster (Squat+Press)",ms:"Full body \u00b7 Quema m\u00e1xima",yt:"hyLF1hSfQpo",ytT:"Thruster — Squat + Press",
@@ -271,7 +269,8 @@ const EX={
      tip:["Refuerza exactamente lo que el Dr. Bruno ajusta en cada cita.","Combina cardio y postura en un solo ejercicio.","Velocidad en el tir\u00f3n + lentitud en el regreso = doble beneficio."]},
     {nm:"Dead Bug",ms:"Core profundo \u00b7 Anti-rotaci\u00f3n",yt:"xtTIb6dC-vI",ytT:"Dead Bug — 30 Segundos · Physical Therapy",
      cue:["Boca arriba. Baja brazo y pierna opuestos lento. Espalda al suelo siempre.","5 seg por lado. M\u00e1s lento. Respiraci\u00f3n controlada.","Mancuerna peque\u00f1a en la mano. 6 seg por lado. M\u00e1ximo control."],
-     tip:["Siempre cierra el HIIT con este \u2014 activa el core profundo sin comprimir discos.","En Fase 2 el truco es ir m\u00e1s lento, no m\u00e1s r\u00e1pido.","La resistencia extra activa el transverso abdominal al m\u00e1ximo."]},
+     tip:["Siempre cierra el HIIT con este \u2014 activa el core profundo sin comprimir discos.","En Fase 2 el truco es ir m\u00e1s lento, no m\u00e1s r\u00e1pido.","La resistencia extra activa el transverso abdominal al m\u00e1ximo."]},,
+    {nm:"Marching Hip Bridge",ms:"Gl\u00fateos \u00b7 Pelvis \u00b7 L4-L5",yt:"iZSKZ37MUu0",ytT:"Bridge + March — Physical Therapy",cue:["Boca arriba, rodillas dobladas, brazos a los lados. Sube caderas apretando gl\u00fateos hasta l\u00ednea recta rodilla-cadera-hombro. Levanta una rodilla al pecho sin bajar la cadera. Alterna. 8 por lado.","Mant\u00e9n el puente m\u00e1s alto. Marcha m\u00e1s lenta, 3 seg por pierna. Sin que la cadera rote ni caiga. 10 por lado.","Puente con banda sobre las rodillas. Marcha con pausa de 2 seg arriba de cada pierna. 12 por lado."],tip:["Este es tu ejercicio de HealthSource \u2014 protege L4-L5 mientras fortalece gl\u00fateos.","Si la cadera cae o rota al levantar la pierna, el gl\u00fateo de apoyo a\u00fan no est\u00e1 listo \u2014 marcha m\u00e1s lento.","Es la base de todo el programa de HealthSource para tu pelvis."]}
   ],
   C:[
     {nm:"Push-up",ms:"Pecho \u00b7 Hombros \u00b7 Tr\u00edceps",yt:"CwMfr8AL81I",ytT:"Push-up — Forma Correcta",
@@ -285,7 +284,8 @@ const EX={
      tip:["El ejercicio que m\u00e1s directamente complementa tu tratamiento con el Dr. Bruno.","Los 3 \u00e1ngulos activan todos los m\u00fasculos escapulares.","La rotaci\u00f3n externa activa el manguito rotador \u2014 clave para tu C6."]},
     {nm:"Band Row / Renegade Row",ms:"Espalda \u00b7 Core \u00b7 Anti-rotaci\u00f3n",yt:"db43OS-4ruY",ytT:"Standing Band Row con ancla de puerta",
      cue:["Band Row: jala codos atr\u00e1s. Pausa 2 seg juntando om\u00f3platos.","Band Row explosivo. Banda m\u00e1s resistente. 3 seg al regresar.","Renegade Row: plancha con mancuernas. Jala una sin rotar la cadera."],
-     tip:["La pausa al final activa m\u00e1s los retractores escapulares.","Combina fuerza de espalda y core en el mismo ejercicio.","El Renegade Row en Fase 3 es la se\u00f1al de que progresaste realmente."]},
+     tip:["La pausa al final activa m\u00e1s los retractores escapulares.","Combina fuerza de espalda y core en el mismo ejercicio.","El Renegade Row en Fase 3 es la se\u00f1al de que progresaste realmente."]},,
+    {nm:"Marching Hip Bridge",ms:"Gl\u00fateos \u00b7 Pelvis \u00b7 L4-L5",yt:"iZSKZ37MUu0",ytT:"Bridge + March — Physical Therapy",cue:["Boca arriba, rodillas dobladas, brazos a los lados. Sube caderas apretando gl\u00fateos hasta l\u00ednea recta rodilla-cadera-hombro. Levanta una rodilla al pecho sin bajar la cadera. Alterna. 8 por lado.","Mant\u00e9n el puente m\u00e1s alto. Marcha m\u00e1s lenta, 3 seg por pierna. Sin que la cadera rote ni caiga. 10 por lado.","Puente con banda sobre las rodillas. Marcha con pausa de 2 seg arriba de cada pierna. 12 por lado."],tip:["Este es tu ejercicio de HealthSource \u2014 protege L4-L5 mientras fortalece gl\u00fateos.","Si la cadera cae o rota al levantar la pierna, el gl\u00fateo de apoyo a\u00fan no est\u00e1 listo \u2014 marcha m\u00e1s lento.","Es la base de todo el programa de HealthSource para tu pelvis."]}
   ],
   D:[
     {nm:"Hip Thrust",ms:"Gl\u00fateos \u00b7 Core \u00b7 Estabilidad p\u00e9lvica",yt:"3vUbYrbym9w",ytT:"Banded Hip Thrust — Técnica Correcta",
