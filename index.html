@@ -355,7 +355,7 @@ function renderHome(){
 function togglePrev(id){DM.forEach(function(d){if(d.id!==id){var p=document.getElementById("pp-"+d.id),c=document.getElementById("chv-"+d.id);if(p)p.classList.remove("open");if(c)c.classList.remove("open");}});var pp=document.getElementById("pp-"+id),cc=document.getElementById("chv-"+id);if(pp)pp.classList.toggle("open");if(cc)cc.classList.toggle("open");}
 function startSession(id){dayId=id;rnd=1;exI=0;phase="work";doneI=[];running=false;clearInterval(iv);rem=ph().w;show("sess-screen");renderSess();}
 function renderSess(){
-  var dm=DM.find(function(d){return d.id===dayId;}),exs=EX[dayId],ex=exs[exI],p=ph(),pn=phN(),phc=PHC[pn];
+  var dm=DM.find(function(d){return d.id===dayId;}),exs=EX[dayId==="B2"?"B":dayId],ex=exs[exI],p=ph(),pn=phN(),phc=PHC[pn];
   document.getElementById("sround").textContent="Ronda "+rnd+" de "+ROUNDS+" \u00b7 "+p.sh;
   document.getElementById("stitle").textContent=dm.name+" \u2014 "+dm.label;
   document.getElementById("sdots").innerHTML=exs.map(function(_,i){return '<div class="pd '+(i<exI?"pdn":i===exI?"pac":"")+'"></div>';}).join("");
@@ -387,7 +387,7 @@ function startTimer(){
 }
 function pauseTimer(){running=false;clearInterval(iv);var b=document.getElementById("sabtn");b.textContent="Iniciar";b.style.background="var(--acc)";}
 function advance(){
-  var p=ph(),exs=EX[dayId];
+  var p=ph(),exs=EX[dayId==="B2"?"B":dayId];
   if(phase==="work"){beep(440,.12);
     if(exI<exs.length-1){phase="rest";rem=p.r;}
     else if(rnd<ROUNDS){phase="roundrest";rem=60;}
@@ -401,7 +401,7 @@ function showDone(){
   if(window._wakeLock){window._wakeLock.release();window._wakeLock=null;}
   running=false;var dm=DM.find(function(d){return d.id===dayId;}),pn=phN(),wn=wkN();
   document.getElementById("dsub").textContent=dm.name+" \u00b7 Sem "+wn+" \u00b7 "+ph().name;
-  document.getElementById("dser").textContent=EX[dayId].length*ROUNDS;
+  document.getElementById("dser").textContent=EX[dayId==="B2"?"B":dayId].length*ROUNDS;
   document.getElementById("dkcal").textContent="~"+dm.kcal[pn];
   var phaseUp=wn===4||wn===8;
   document.getElementById("phase-up-wrap").innerHTML=phaseUp?'<div class="phase-banner"><div class="pbn-t">&#127881; &#161;Fase '+pn+' completada!</div><div class="pbn-s">La pr\u00f3xima semana comienza '+(pn<3?"la Fase "+(pn+1):"la \u00faltima fase")+'. El nivel sube autom\u00e1ticamente.</div></div>':"";
