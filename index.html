@@ -378,12 +378,23 @@ function startTimer(){
       window._wakeLock = lock;
     }).catch(function(){});
   }
-  running=true;renderSess();var p=ph();
+  running=true;renderSess();
+  clearInterval(iv);
+  var tickStart=Date.now();
+  var remAtStart=rem;
   iv=setInterval(function(){
-    rem--;var isRest=phase!=="work",total=phase==="work"?p.w:phase==="rest"?p.r:60;
-    document.getElementById("ringwrap").innerHTML=ring(total,rem,isRest);
+    if(!running)return;
+    var p=ph();
+    var elapsed=Math.floor((Date.now()-tickStart)/1000);
+    var newRem=remAtStart-elapsed;
+    if(newRem!==rem){
+      rem=newRem;
+      var isRest=phase!=="work",total=phase==="work"?p.w:phase==="rest"?p.r:60;
+      var rw=document.getElementById("ringwrap");
+      if(rw)rw.innerHTML=ring(total,Math.max(0,rem),isRest);
+    }
     if(rem<=0){clearInterval(iv);advance();}
-  },1000);
+  },250);
 }
 function pauseTimer(){running=false;clearInterval(iv);var b=document.getElementById("sabtn");b.textContent="Iniciar";b.style.background="var(--acc)";}
 function advance(){
