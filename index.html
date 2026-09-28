@@ -369,13 +369,38 @@ function renderSess(){
 }
 function toggleCard(id){var b=document.getElementById("eb-"+id),c=document.getElementById("ech-"+id);var o=b.classList.toggle("open");c.style.transform=o?"rotate(180deg)":"none";}
 function toggleTimer(){if(running)pauseTimer();else startTimer();}
+function requestWakeLock(){
+  try{
+    if('wakeLock' in navigator){
+      if(window._wakeLock && !window._wakeLock.released){return;}
+      navigator.wakeLock.request('screen').then(function(lock){
+        window._wakeLock=lock;
+        lock.addEventListener('release',function(){window._wakeLock=null;});
+      }).catch(function(){});
+    }
+  }catch(e){}
+  startKeepAwakeVideo();
+}
+function startKeepAwakeVideo(){
+  try{
+    if(window._kav){return;}
+    var v=document.createElement('video');
+    v.setAttribute('playsinline','');v.setAttribute('muted','');v.muted=true;v.loop=true;
+    v.style.cssText='position:fixed;width:1px;height:1px;opacity:0.01;pointer-events:none;bottom:0;left:0;';
+    v.src='data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAAr1tZGF0AAACrgYF//+q3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE1NSByMjkwMSA3ZDBmZjIyIC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAxOCAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTEgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MzoweDExMyBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MSBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTMgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0zIGJfcHlyYW1pZD0yIGJfYWRhcHQ9MSBiX2JpYXM9MCBkaXJlY3Q9MSB3ZWlnaHRiPTEgb3Blbl9nb3A9MCB3ZWlnaHRwPTIga2V5aW50PTI1MCBrZXlpbnRfbWluPTEgc2NlbmVjdXQ9NDAgaW50cmFfcmVmcmVzaD0wIHJjX2xvb2thaGVhZD00MCByYz1jcmYgbWJ0cmVlPTEgY3JmPTI4LjAgcWNvbXA9MC42MCBxcG1pbj0wIHFwbWF4PTY5IHFwc3RlcD00IGlwX3JhdGlvPTEuNDAgYXE9MToxLjAwAIAAAAAwZYiEAD//8m+P5OXfBeLGOfKE3xkODvFZuBflHv/+VwJIta6cbpIo4ABLoKBaYTkTAAAC7W1vb3YAAABsbXZoZAAAAAAAAAAAAAAAAAAAA+gAAAPoAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAGGlvZHMAAAAAEICAgAcAT////v7/AAACjXRyYWsAAABcdGtoZAAAAAMAAAAAAAAAAAAAAAEAAAAAAAAD6AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAEAAAABAAAAAAACRlZHRzAAAAHGVsc3QAAAAAAAAAAQAAA+gAAAAAAAEAAAAAAgVtZGlhAAAAIG1kaGQAAAAAAAAAAAAAAAAAAEAAAABAAFXEAAAAAAAtaGRscgAAAAAAAAAAdmlkZQAAAAAAAAAAAAAAAFZpZGVvSGFuZGxlcgAAAAGwbWluZgAAABR2bWhkAAAAAQAAAAAAAAAAAAAAJGRpbmYAAAAcZHJlZgAAAAAAAAABAAAADHVybCAAAAABAAABcHN0YmwAAACwc3RzZAAAAAAAAAABAAAAoGF2YzEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEAAQAEgAAABIAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY//8AAAA2YXZjQwFkAAr/4QAZZ2QACqzZQJDwEQAAAwABAAADACAPFCmWAQAGaOvjyyLA/fj4AAAAABBwYXNwAAAAAQAAAAEAAAAUYnRydAAAAAAAAA1lAAAAAAAAABhzdHRzAAAAAAAAAAEAAAABAAAEAAAAABxzdHNjAAAAAAAAAAEAAAABAAAAAQAAAAEAAAAUc3RzegAAAAAAAAAAAAAAAQAAAEAAAAAUc3RjbwAAAAAAAAABAAAAMAAAAGJ1ZHRhAAAAWm1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAG1kaXJhcHBsAAAAAAAAAAAAAAAALWlsc3QAAAAlqXRvbwAAAB1kYXRhAAAAAQAAAABMYXZmNTguMjkuMTAw';
+    document.body.appendChild(v);
+    var p=v.play();if(p&&p.catch){p.catch(function(){});}
+    window._kav=v;
+  }catch(e){}
+}
+function stopKeepAwakeVideo(){
+  try{if(window._kav){window._kav.pause();window._kav.remove();window._kav=null;}}catch(e){}
+}
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState==='visible' && running){requestWakeLock();}
+});
 function startTimer(){
-  // Activar Wake Lock para mantener pantalla encendida
-  if('wakeLock' in navigator && !window._wakeLock){
-    navigator.wakeLock.request('screen').then(function(lock){
-      window._wakeLock = lock;
-    }).catch(function(){});
-  }
+  requestWakeLock();
   running=true;renderSess();
   clearInterval(iv);
   var tickStart=Date.now();
@@ -407,7 +432,7 @@ function advance(){
 }
 function showDone(){
   // Liberar Wake Lock al terminar
-  if(window._wakeLock){window._wakeLock.release();window._wakeLock=null;}
+  if(window._wakeLock){window._wakeLock.release();window._wakeLock=null;}stopKeepAwakeVideo();
   running=false;var dm=DM.find(function(d){return d.id===dayId;}),pn=phN(),wn=wkN();
   document.getElementById("dsub").textContent=dm.name+" \u00b7 Sem "+wn+" \u00b7 "+ph().name;
   document.getElementById("dser").textContent=EX[dayId==="B2"?"B":dayId].length*ROUNDS;
@@ -424,7 +449,7 @@ function finishSession(){
   // También sync ligero en otros días para no perder datos
   else{syncToGitHub();}
 }
-function goHome(){running=false;clearInterval(iv);if(window._wakeLock){window._wakeLock.release();window._wakeLock=null;}show("app-screen");document.getElementById("bnav").style.display="flex";}
+function goHome(){running=false;clearInterval(iv);if(window._wakeLock){window._wakeLock.release();window._wakeLock=null;}stopKeepAwakeVideo();show("app-screen");document.getElementById("bnav").style.display="flex";}
 function saveMeasure(){
   var w=parseFloat(document.getElementById("iw").value),wa=parseFloat(document.getElementById("iwa").value),h=parseFloat(document.getElementById("ih").value);
   if(!w&&!wa&&!h)return;
