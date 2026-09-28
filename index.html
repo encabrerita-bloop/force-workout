@@ -178,6 +178,11 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
       <div class="sthdr">Ajustes</div>
       <div class="mcard"><div class="mtitle">Estado del programa</div><div id="prog-status" style="font-size:13px;color:var(--mu);line-height:1.9;"></div></div>
       <div class="mcard">
+        <div class="mtitle">Actualizar app</div>
+        <p style="font-size:13px;color:var(--mu);margin-bottom:12px;line-height:1.5;">Carga la \u00faltima versi\u00f3n sin borrar la app. Tu progreso no se toca.</p>
+        <button onclick="refreshApp()" style="width:100%;padding:10px;border-radius:9px;border:none;background:var(--acc);color:#fff;font-weight:700;font-size:13px;">Actualizar ahora</button>
+      </div>
+      <div class="mcard">
         <div class="mtitle">Restaurar progreso</div>
         <p style="font-size:13px;color:var(--mu);margin-bottom:12px;line-height:1.5;">Trae tu historial guardado en la nube (GitHub) a este dispositivo.</p>
         <button onclick="restoreFromCloud(true)" style="width:100%;padding:10px;border-radius:9px;border:1px solid var(--acc);background:rgba(255,107,53,.1);color:var(--acc);font-weight:700;font-size:13px;">Restaurar desde la nube</button>
@@ -554,6 +559,21 @@ function showSyncBadge(msg){
   setTimeout(function(){b.remove();},3000);
 }
 
+async function refreshApp(){
+  showSyncBadge("&#128260; Actualizando...");
+  try{
+    if('serviceWorker' in navigator){
+      var regs=await navigator.serviceWorker.getRegistrations();
+      for(var i=0;i<regs.length;i++){await regs[i].unregister();}
+    }
+    if('caches' in window){
+      var keys=await caches.keys();
+      for(var j=0;j<keys.length;j++){await caches.delete(keys[j]);}
+    }
+  }catch(e){}
+  var u=location.origin+location.pathname+"?v="+Date.now();
+  setTimeout(function(){location.replace(u);},400);
+}
 async function restoreFromCloud(manual){
   try{
     var res=await fetch("https://raw.githubusercontent.com/encabrerita-bloop/force-workout/main/progress.json?t="+Date.now(),{cache:"no-store"});
