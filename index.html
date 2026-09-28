@@ -178,6 +178,11 @@ button{cursor:pointer;font-family:inherit;-webkit-appearance:none;}input{font-fa
       <div class="sthdr">Ajustes</div>
       <div class="mcard"><div class="mtitle">Estado del programa</div><div id="prog-status" style="font-size:13px;color:var(--mu);line-height:1.9;"></div></div>
       <div class="mcard">
+        <div class="mtitle">Restaurar progreso</div>
+        <p style="font-size:13px;color:var(--mu);margin-bottom:12px;line-height:1.5;">Trae tu historial guardado en la nube (GitHub) a este dispositivo.</p>
+        <button onclick="restoreFromCloud(true)" style="width:100%;padding:10px;border-radius:9px;border:1px solid var(--acc);background:rgba(255,107,53,.1);color:var(--acc);font-weight:700;font-size:13px;">Restaurar desde la nube</button>
+      </div>
+      <div class="mcard">
         <div class="mtitle">Reiniciar programa</div>
         <p style="font-size:13px;color:var(--mu);margin-bottom:12px;line-height:1.5;">Vuelve a la Fase 1. Tu historial de medidas se conserva.</p>
         <button onclick="resetProgram()" style="width:100%;padding:10px;border-radius:9px;border:1px solid #FF5C5C;background:rgba(255,92,92,.1);color:#FF5C5C;font-weight:700;font-size:13px;">Reiniciar desde Fase 1</button>
@@ -549,22 +554,28 @@ function showSyncBadge(msg){
   setTimeout(function(){b.remove();},3000);
 }
 
-async function loadFromGitHub(){
-  // Al cargar, intenta restaurar desde GitHub si hay más sesiones en la nube
+async function restoreFromCloud(manual){
   try{
-    var res=await fetch("/.netlify/functions/load");
-    if(res.ok){
-      var data=await res.json();
-      var localSessions=Object.keys(ST.hist||{}).length;
-      var cloudSessions=Object.keys(data.hist||{}).length;
-      if(cloudSessions>localSessions){
-        ST=data;save();
-        showSyncBadge("&#9729;&#65039; Progreso restaurado ("+cloudSessions+" sesiones)");
-        renderHome();
-      }
+    var res=await fetch("https://raw.githubusercontent.com/encabrerita-bloop/force-workout/main/progress.json?t="+Date.now(),{cache:"no-store"});
+    if(!res.ok)throw new Error("http "+res.status);
+    var cloud=await res.json();
+    var cloudN=Object.keys(cloud.hist||{}).length;
+    var localN=Object.keys(ST.hist||{}).length;
+    if(cloudN>localN||(manual&&cloudN>0)){
+      var localMeasures=ST.measures||[];
+      ST=cloud;
+      if(!ST.measures||ST.measures.length===0){ST.measures=localMeasures;}
+      save();renderHome();
+      showSyncBadge("&#9729;&#65039; Progreso restaurado ("+cloudN+" sesiones)");
+    }else if(manual){
+      showSyncBadge("&#9989; Ya tienes todo al d\u00eda");
     }
-  }catch(e){}
+  }catch(e){
+    if(manual)showSyncBadge("&#9888;&#65039; No se pudo restaurar");
+  }
 }
+async function loadFromGitHub(){await restoreFromCloud(false);}
+
 
 // Actualizar texto del botón si ya hay programa activo
 if(ST.startDate){show("app-screen");document.getElementById("bnav").style.display="flex";renderHome();loadFromGitHub();}
