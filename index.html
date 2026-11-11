@@ -328,7 +328,7 @@ try{const d=JSON.parse(localStorage.getItem("force_v6")||"{}");if(d.startDate)ST
 let dayId=null,rnd=1,exI=0,phase="work",rem=0,running=false,iv=null,doneI=[];let ac=null;
 function save(){try{localStorage.setItem("force_v6",JSON.stringify(ST));}catch{}}
 function phN(){if(!ST.startDate)return 1;const w=Math.floor((Date.now()-new Date(ST.startDate))/(7*86400000));return w<4?1:w<8?2:3;}
-function wkN(){if(!ST.startDate)return 1;return Math.min(12,Math.floor((Date.now()-new Date(ST.startDate))/(7*86400000))+1);}
+function wkN(){if(!ST.startDate)return 1;return Math.max(1,Math.min(12,Math.floor((Date.now()-new Date(ST.startDate))/(7*86400000))+1));}
 function ph(){return PH[phN()-1];}
 function startProgram(){if(!ST.startDate)ST.startDate=new Date().toISOString().split("T")[0];save();show("app-screen");document.getElementById("bnav").style.display="flex";renderHome();}
 function resetProgram(){if(!confirm("Reiniciar desde Fase 1?"))return;ST.startDate=new Date().toISOString().split("T")[0];ST.hist={};save();renderHome();switchTab("home");}
